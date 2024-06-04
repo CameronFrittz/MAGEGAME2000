@@ -19,6 +19,7 @@ var reticle_scene = preload("res://reticle.tscn")
 var freeze_reticle_scene = preload("res://FreezeReticle.tscn")  # Updated preload
 var reticle_instance = null
 var stun_reticle_texture = preload("res://StunReticle.png")  # Texture for the freeze effect visualization
+
 # Constants and variables for the freeze ability
 const FREEZE_RADIUS: float = 150.0  # Adjust this for your game's scale
 const FREEZE_DURATION: float = 3.5
@@ -365,17 +366,14 @@ func update_post_dash_velocity() -> void:
 func push_enemies_away_from_landing(landing_position: Vector2) -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	for enemy in enemies:
-		if enemy.has_method("get_last_movement_direction"):
-			var enemy_collision = enemy.get_node("CollisionPolygon2D")  # Ensure correct node name
-			if enemy_collision and enemy_collision.global_position.distance_to(landing_position) < 50:  # Example distance
-				var push_direction = enemy.get_last_movement_direction()  # Use the enemy's last movement direction
-				if push_direction.length() == 0:
-					push_direction = (enemy.global_position - landing_position).normalized()  # Fallback if no movement direction
-				var push_distance = 10  # Adjust based on your game's needs
-				enemy.global_position += push_direction * push_distance
-				print("Pushed enemy:", enemy.name)  # Debug print
-		else:
-			print("Enemy does not have method get_last_movement_direction")
+		var enemy_collision = enemy.get_node("CollisionPolygon2D")  # Ensure correct node name
+		if enemy_collision and enemy_collision.global_position.distance_to(landing_position) < 50:  # Example distance
+			var push_direction = enemy.last_movement_direction  # Use the enemy's last movement direction
+			if push_direction.length() == 0:
+				push_direction = (enemy.global_position - landing_position).normalized()  # Fallback if no movement direction
+			var push_distance = 10  # Adjust based on your game's needs
+			enemy.global_position += push_direction * push_distance
+			print("Pushed enemy:", enemy.name)  # Debug print
 
 # Manage animations based on state
 func AnimationLoop():

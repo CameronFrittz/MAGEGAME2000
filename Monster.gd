@@ -20,7 +20,7 @@ var target_player: Node2D
 enum State { APPROACH, RETREAT, COLLIDED }
 var current_state = State.APPROACH
 var retreat_target: Vector2
-var last_movement_direction: Vector2 = Vector2.ZERO
+
 # Node references
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")
@@ -52,14 +52,6 @@ func _ready():
 	add_child(pick_target_timer)
 
 func _physics_process(delta: float):
-	var direction = Vector2.ZERO
-	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	if direction != Vector2.ZERO:
-		last_movement_direction = direction.normalized()
-		velocity = last_movement_direction * SPEED
-	else:
-		velocity = Vector2.ZERO
 	if is_hit_recently:
 		hit_timer -= delta
 		if hit_timer <= 0:
@@ -95,10 +87,10 @@ func pick_target() -> void:
 				min_distance = distance
 				target_player = child
 
-	#if target_player:
-		#print("Target player assigned: ", target_player.name)
-	#else:
-		#print("No valid target player found")
+	if target_player:
+		print("Target player assigned: ", target_player.name)
+	else:
+		print("No valid target player found")
 
 func approach_player(_delta: float) -> Vector2:
 	# Ensure that the target is valid
@@ -130,9 +122,7 @@ func start_flash():
 
 func stop_flash():
 	sprite.modulate = Color(1, 1, 1)
-# Function to get the last movement direction
-func get_last_movement_direction() -> Vector2:
-	return last_movement_direction
+
 
 # Applies damage to the monster
 func apply_damage(damage_amount: int):
@@ -198,36 +188,3 @@ func _enemy_died():
 func _on_death_timeout():
 	print("Death timeout reached, removing enemy")
 	queue_free()  # This method will be called when the timer runs out
-
-
-func freeze(duration):
-	set_physics_process(false)  # Stop the monster's movement and actions
-	modulate = Color(0.5, 0.5, 1.0)  # Change color to indicate freezing
-
-	# Set up and start the damage timer
-	var damage_timer = Timer.new()
-	add_child(damage_timer)
-	damage_timer.wait_time = 1.0  # 1 second interval for damage application
-	damage_timer.one_shot = false
-	damage_timer.timeout.connect(_apply_freeze_damage)
-	damage_timer.start()
-
-	# Use an asynchronous coroutine to manage the freeze duration
-	await get_tree().create_timer(duration).timeout
-	damage_timer.queue_free()
-	set_physics_process(true)
-	modulate = Color(1, 1, 1)  # Restore original color
-
-func _apply_freeze_damage():
-	apply_freeze_damage(randf_range(2, 5))  # Apply 2-5 damage every second
-	
-func apply_freeze_damage(damage_amount: int):
-	# Directly apply damage as this is for the freeze effect and should bypass normal hit cooldown
-	health -= damage_amount
-	health_bar.value = health  # Update the health bar's progress
-
-	if health <= 0:
-		die()
-	else:
-		# Flash to indicate freeze damage if needed or manage visuals separately
-		start_flash()
