@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqh7rd8de4gcj"]
+
+[sub_resource type="GDScript" id="GDScript_mqd2d"]
+resource_name = "CanvasLayer"
+script/source = "extends CanvasLayer
+
+# References to the progress bars
+@onready var health_bar = $HealthBar
+@onready var mana_bar = $ManaBar
+
+func _ready():
+	if health_bar == null:
+		print(\"HealthBar node not found.\")
+	if mana_bar == null:
+		print(\"ManaBar node not found.\")
+
+func update_health(health: float, max_health: float) -> void:
+	if health_bar:
+		health_bar.value = health / max_health * 100
+	else:
+		print(\"HealthBar not available.\")
+
+func update_mana(mana: float, max_mana: float) -> void:
+	if mana_bar:
+		mana_bar.value = mana / max_mana * 100
+	else:
+		print(\"ManaBar not available.\")
+
+# Method to update the round counter
+func update_round_counter(current_round, total_rounds):
+	$RoundCounter.text = \"Round: %d / %d\" % [current_round, total_rounds]
+
+# Method to update the enemies left counter
+func update_enemies_left_counter(enemies_left):
+	$EnemiesLeftCounter.text = \"Enemies Left: %d\" % [enemies_left]
+"
+
+[sub_resource type="ImageTexture" id="ImageTexture_xbf6t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fp5cg"]
+texture = SubResource("ImageTexture_xbf6t")
+modulate_color = Color(0, 1, 1, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_2gokl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2nmmd"]
+texture = SubResource("ImageTexture_2gokl")
+modulate_color = Color(1, 0, 0, 1)
+
+[node name="hud" type="CanvasLayer"]
+script = SubResource("GDScript_mqd2d")
+
+[node name="ManaBar" type="ProgressBar" parent="."]
+z_index = 3
+offset_left = 768.0
+offset_top = 8.0
+offset_right = 1152.0
+offset_bottom = 35.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_fp5cg")
+fill_mode = 1
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 3
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 35.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_2nmmd")
+
+[node name="RoundCounter" type="Label" parent="."]
+z_index = 1
+y_sort_enabled = true
+offset_left = 392.0
+offset_top = 8.0
+offset_right = 432.0
+offset_bottom = 31.0
+
+[node name="EnemiesLeftCounter" type="Label" parent="."]
+z_index = 1
+y_sort_enabled = true
+offset_left = 624.0
+offset_top = 8.0
+offset_right = 664.0
+offset_bottom = 31.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.007
+anchor_bottom = 1.012
+offset_left = -32.0
+offset_right = -1150.06
+offset_bottom = -615.776
+scale = Vector2(28.76, 1.12)
+color = Color(0.240607, 0.000609287, 0.410417, 1)

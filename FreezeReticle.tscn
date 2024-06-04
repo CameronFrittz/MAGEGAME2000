@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtr4ej34oy44s"]
+
+[ext_resource type="Script" path="res://FreezeReticle.gd" id="1_7v4gh"]
+[ext_resource type="Texture2D" uid="uid://d3xj0etlbugqc" path="res://StunReticle.png" id="1_rfyts"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pyili"]
+radius = 453.079
+height = 2104.0
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_7v4gh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rfyts")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-19, 57)
+rotation = -1.58122
+shape = SubResource("CapsuleShape2D_pyili")
