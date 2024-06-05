@@ -30,7 +30,7 @@ var hit_timer: float = 0.0
 var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready var health_bar = $ProgressBar
-
+var last_movement_direction: Vector2 = Vector2.ZERO
 func _ready():
 	players_parent = get_node("/root/MAGEGAME/Players")  # Change this to the correct path
 	if not players_parent:
@@ -51,6 +51,13 @@ func _ready():
 	pick_target_timer.timeout.connect(pick_target)
 	add_child(pick_target_timer)
 
+func update_last_movement_direction(velocity: Vector2) -> void:
+	if velocity.length() > 0:
+		last_movement_direction = velocity.normalized()
+	else:
+		last_movement_direction = Vector2.ZERO
+
+
 func _physics_process(delta: float):
 	if is_hit_recently:
 		hit_timer -= delta
@@ -64,7 +71,7 @@ func _physics_process(delta: float):
 			velocity = retreat_from_player(delta)
 		State.COLLIDED:
 			velocity = retreat_from_player(delta)
-
+	update_last_movement_direction(velocity)  # Update the last movement direction
 	move_and_slide()  # Move the monster with the assigned velocity
 
 

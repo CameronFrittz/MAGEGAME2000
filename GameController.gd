@@ -72,7 +72,7 @@ func on_inter_round_timeout():
 	start_round()  # Start the next round
 
 	
-	
+
 func spawn_enemy():
 		if enemies_to_spawn > 0:
 			var currentMonster = monsterspawner_node.spawn_function()

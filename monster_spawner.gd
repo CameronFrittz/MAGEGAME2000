@@ -9,8 +9,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func spawn_function():
+@rpc("any_peer")
+func spawn_function() -> Node:
 	var currentMonster = monster_scene.instantiate()
 	var spawn_index = randi() % spawn_points.size()
 	var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
