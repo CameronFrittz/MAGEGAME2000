@@ -127,7 +127,7 @@ func stop_flash():
 # Applies damage to the monster
 func apply_damage(damage_amount: int):
 	if is_hit_recently:
-		return  # Skip applying damage if we are within the cooldown period
+		return 
 
 	if multiplayer.is_server():
 		_apply_damage(damage_amount)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://wfg1fpxfp1t2"]
+[gd_scene load_steps=17 format=3 uid="uid://wfg1fpxfp1t2"]
 
 [ext_resource type="Script" path="res://SceneManager.gd" id="1_6msmm"]
 [ext_resource type="Texture2D" uid="uid://bosm2aqyi24vx" path="res://isometric tiles.png" id="1_q15ps"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bhsnp72cip8du" path="res://player.tscn" id="4_0sq5i"]
 [ext_resource type="AudioStream" uid="uid://ba5e7li0wi0l0" path="res://Chip Tune Tune Lower.wav" id="6_sgge5"]
 [ext_resource type="Script" path="res://GameController.gd" id="6_xcg26"]
+[ext_resource type="Script" path="res://enemy_spawner.gd" id="8_w8cge"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ctv0r"]
 tile_data = PackedInt32Array(0, 65536, 14, 65536, 65536, 14, 131072, 65536, 14, 196608, 65536, 14, 262144, 65536, 14, 1, 65536, 14, 65537, 65536, 14, 131073, 65536, 14, 196609, 65536, 14, 262145, 65536, 14, 2, 65536, 14, 65538, 65536, 14, 131074, 65536, 14, 196610, 65536, 14, 262146, 65536, 14, 3, 65536, 14, 65539, 65536, 14, 131075, 65536, 14, 196611, 65536, 14, 262147, 65536, 14)
@@ -434,3 +435,7 @@ unique_name_in_owner = true
 
 [node name="Monsters" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Monsters")
+script = ExtResource("8_w8cge")
