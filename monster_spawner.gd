@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 	
 func spawn_monster() -> Node:
 	var currentMonster = monster_scene.instantiate()
-	add_spawnable_scene("res://monster.tscn")
 	var spawn_index = randi() % spawn_points.size()
 	var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 	var spawn_position = spawn_points[spawn_index] + offset

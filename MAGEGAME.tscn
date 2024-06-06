@@ -438,10 +438,11 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="MonsterSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://fireball.tscn", "res://FreezeReticle.tscn")
+_spawnable_scenes = PackedStringArray("res://monster.tscn")
 spawn_path = NodePath("../Monsters")
 script = ExtResource("8_w8cge")
 
 [node name="hud" parent="." instance=ExtResource("3_j1q5l")]
 
 [node name="BloodPool" parent="." instance=ExtResource("9_x46mn")]
+position = Vector2(-357, -184)

@@ -3,7 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://c3xckhjgd33do" path="res://Bloodpool.png" id="1_6uqf0"]
 
 [node name="BloodPool" type="Node2D"]
-scale = Vector2(0.0598193, 0.0598193)
+z_index = 5
+y_sort_enabled = true
+scale = Vector2(0.114481, 0.114481)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.232527, 0.232527)
 texture = ExtResource("1_6uqf0")

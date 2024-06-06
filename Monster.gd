@@ -11,8 +11,8 @@ const RETREAT_COOLDOWN: float = 5.0
 var flash_duration: float = 0.2
 var is_flashing: bool = false
 signal enemy_died
-var is_dying: bool = false
-
+@export var is_dying: bool = false
+@export var is_frozen: bool = false
 var players_parent: Node
 var target_player: Node2D
 
@@ -188,22 +188,24 @@ func _on_death_timeout():
 	queue_free()  # This method will be called when the timer runs out
 
 func freeze(duration):
-	set_physics_process(false)  # Stop the monster's movement and actions
-	modulate = Color(0.5, 0.5, 1.0)  # Change color to indicate freezing
+	is_frozen = true
+	if is_frozen == true:
+		set_physics_process(false)  # Stop the monster's movement and actions
+		modulate = Color(0.5, 0.5, 1.0)  # Change color to indicate freezing
 
-	# Set up and start the damage timer
-	var damage_timer = Timer.new()
-	add_child(damage_timer)
-	damage_timer.wait_time = 1.0  # 1 second interval for damage application
-	damage_timer.one_shot = false
-	damage_timer.timeout.connect(_apply_freeze_damage)
-	damage_timer.start()
+		# Set up and start the damage timer
+		var damage_timer = Timer.new()
+		add_child(damage_timer)
+		damage_timer.wait_time = 1.0  # 1 second interval for damage application
+		damage_timer.one_shot = false
+		damage_timer.timeout.connect(_apply_freeze_damage)
+		damage_timer.start()
 
-	# Use an asynchronous coroutine to manage the freeze duration
-	await get_tree().create_timer(duration).timeout
-	damage_timer.queue_free()
-	set_physics_process(true)
-	modulate = Color(1, 1, 1)  # Restore original color
+		# Use an asynchronous coroutine to manage the freeze duration
+		await get_tree().create_timer(duration).timeout
+		damage_timer.queue_free()
+		set_physics_process(true)
+		modulate = Color(1, 1, 1)  # Restore original color
 
 func apply_freeze_damage(damage_amount: int):
 	# Directly apply damage as this is for the freeze effect and should bypass normal hit cooldown
