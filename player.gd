@@ -7,7 +7,7 @@ const DASH_DURATION: float = 0.20
 const DASH_COOLDOWN: float = 0.55
 const ATTACK_DURATION: float = 0.4  # Duration of attack animation
 const FIREBALL_SPEED: float = 400.0
-const FIREBALL_MANA_COST = 20  
+const FIREBALL_MANA_COST = 8  
 const MANA_REGEN_RATE: float = 3.0  # Mana regeneration rate per second
 const DAMAGE_COOLDOWN = 1  # 3 seconds cooldown
 var damage_cooldown_timer: float = 0.0
@@ -119,6 +119,8 @@ func _input(event):
 func reset_reticle_position():
 	if reticle_instance and reticle_instance.is_inside_tree():
 		reticle_instance.global_position = global_position
+func has_authority() -> bool:
+	return $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
 
 # Helper function to determine if the mouse is on screen
 func is_mouse_on_screen() -> bool:
@@ -126,9 +128,8 @@ func is_mouse_on_screen() -> bool:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos.x >= 0 and mouse_pos.y >= 0 and mouse_pos.x <= viewport_size.x and mouse_pos.y <= viewport_size.y
 
-# Fire a fireball towards a target
 func fire_fireball(target_position):
-	if mana >= FIREBALL_MANA_COST:
+	if has_authority() and mana >= FIREBALL_MANA_COST:
 		if fireball_scene:
 			var fireball_instance = fireball_scene.instantiate()
 			fireball_instance.position = position
@@ -136,14 +137,17 @@ func fire_fireball(target_position):
 			get_parent().add_child(fireball_instance)
 			mana -= FIREBALL_MANA_COST
 			update_mana_display()
+			%FireBallSFX.pitch_scale = randf_range(1.3,1.6)
+			%FireBallSFX.playing = true
 		else:
 			print("Fireball scene not preloaded.")
 	else:
-		print("Not enough mana to cast fireball.")
+		print("Not enough mana to cast fireball or no authority.")
 
 # Update mana display on the HUD
 func update_mana_display():
-	hud.update_mana(mana, max_mana)
+	if has_authority():
+		hud.update_mana(mana, max_mana)
 
 # Change the zoom level based on input
 func change_zoom_level(change: int):
@@ -312,6 +316,9 @@ func start_dash() -> void:
 
 
 	sprite.modulate.a = 0.4  # Make player semi-transparent
+	%DashSFX.pitch_scale = randf_range(4,4.5)
+	%DashSFX.playing = true
+	
 
 # Handle attack mechanics
 func handle_attack(delta: float) -> void:
@@ -328,6 +335,8 @@ func start_attack() -> void:
 	attack_timer = ATTACK_DURATION
 	self.velocity = Vector2.ZERO
 	$AttackArea.set_monitoring(true)
+	%AttackSFX.pitch_scale = randf_range(.9,1.3)
+	%AttackSFX.playing = true
 
 # Update velocity after dashing
 func update_post_dash_velocity() -> void:
@@ -408,11 +417,12 @@ func AnimationLoop():
 
 # Update HUD with current health and mana
 func update_hud() -> void:
-	if hud:
-		hud.update_health(health, max_health)
-		hud.update_mana(mana, max_mana)
-	else:
-		print("HUD not found. Check the node path or structure.")
+	if has_authority():
+		if hud:
+			hud.update_health(health, max_health)
+			hud.update_mana(mana, max_mana)
+		else:
+			print("HUD not found. Check the node path or structure.")
 
 # Detect enemy hits within attack area
 func _on_attack_area_area_entered(area):
@@ -483,7 +493,7 @@ func stop_flash():
 
 # Function to show the freeze reticle without triggering freeze
 func show_freeze_reticle():
-	if freeze_reticle == null and freeze_cooldown_timer <= 0:
+	if has_authority() and freeze_reticle == null and freeze_cooldown_timer <= 0:
 		freeze_reticle = freeze_reticle_scene.instantiate()
 		freeze_reticle.get_node("Sprite2D").texture = stun_reticle_texture
 		freeze_reticle.get_node("Sprite2D").modulate.a = 0.5  # Set alpha to 0.5 while aiming
@@ -497,7 +507,7 @@ func show_freeze_reticle():
 
 # Function to trigger freeze and remove the reticle after the freeze duration
 func trigger_freeze():
-	if freeze_reticle and mana >= FREEZE_MANA_COST and freeze_cooldown_timer <= 0:
+	if has_authority() and freeze_reticle and mana >= FREEZE_MANA_COST and freeze_cooldown_timer <= 0:
 		freeze_cooldown_timer = FREEZE_COOLDOWN
 		mana -= FREEZE_MANA_COST  # Deduct mana cost
 		update_mana_display()  # Update HUD after mana change
@@ -515,9 +525,8 @@ func trigger_freeze():
 		timer.timeout.connect(_on_freeze_duration_timeout)
 		add_child(timer)
 		timer.start()
-
 	else:
-		print("Cannot cast freeze: insufficient mana or skill is on cooldown")
+		print("Cannot cast freeze: insufficient mana, skill is on cooldown, or no authority.")
 
 # Function to remove the reticle after the freeze duration
 func _on_freeze_duration_timeout():

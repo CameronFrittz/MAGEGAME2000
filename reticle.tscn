@@ -14,5 +14,5 @@ modulate = Color(0.744014, 0.437286, 1.92523e-07, 1)
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_v6kdo")
 position = Vector2(-1, -2)
-scale = Vector2(0.0939844, 0.0539843)
+scale = Vector2(0.044, 0.025)
 texture = ExtResource("1_a3mki")

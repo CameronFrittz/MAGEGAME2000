@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://wfg1fpxfp1t2"]
+[gd_scene load_steps=16 format=3 uid="uid://wfg1fpxfp1t2"]
 
 [ext_resource type="Script" path="res://SceneManager.gd" id="1_6msmm"]
 [ext_resource type="Texture2D" uid="uid://bosm2aqyi24vx" path="res://isometric tiles.png" id="1_q15ps"]
 [ext_resource type="Texture2D" uid="uid://cqu61ay4gj3u2" path="res://SnowyGrassAndTrees_Set_01_8Tiles_256x256.png" id="2_onvvl"]
-[ext_resource type="PackedScene" uid="uid://bqh7rd8de4gcj" path="res://hud.tscn" id="3_j1q5l"]
 [ext_resource type="PackedScene" uid="uid://bhsnp72cip8du" path="res://player.tscn" id="4_0sq5i"]
 [ext_resource type="AudioStream" uid="uid://ba5e7li0wi0l0" path="res://Chip Tune Tune Lower.wav" id="6_sgge5"]
 [ext_resource type="Script" path="res://GameController.gd" id="6_xcg26"]
@@ -419,7 +418,6 @@ position = Vector2(-1137, -891)
 position = Vector2(-8, -224)
 stream = ExtResource("6_sgge5")
 volume_db = -8.295
-autoplay = true
 
 [node name="SpawnLocations" type="Node2D" parent="."]
 
@@ -436,8 +434,5 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="MonsterSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://fireball.tscn", "res://FreezeReticle.tscn")
 spawn_path = NodePath("../Monsters")
 script = ExtResource("8_w8cge")
-
-[node name="hud" parent="." instance=ExtResource("3_j1q5l")]

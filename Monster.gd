@@ -31,12 +31,9 @@ var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready var health_bar = $ProgressBar
 var last_movement_direction: Vector2 = Vector2.ZERO
+
 func _ready():
 	players_parent = get_node("/root/MAGEGAME/Players")  # Change this to the correct path
-	if not players_parent:
-		print("Error: players_parent is null")
-	else:
-		print("players_parent successfully assigned")
 	add_to_group("enemies")
 	flash_timer = Timer.new()  # Create a new Timer instance
 	flash_timer.wait_time = flash_duration  # Set the wait time
@@ -45,7 +42,7 @@ func _ready():
 	add_child(flash_timer)  # Add the Timer as a child of the current node
 	
 	# Setup pick target timer
-	pick_target_timer.wait_time = 2.0  # Set the interval to 5 seconds
+	pick_target_timer.wait_time = 2.0  # Set the interval to 2 seconds
 	pick_target_timer.one_shot = false
 	pick_target_timer.autostart = true
 	pick_target_timer.timeout.connect(pick_target)
@@ -54,9 +51,12 @@ func _ready():
 func update_last_movement_direction(velocity: Vector2) -> void:
 	if velocity.length() > 0:
 		last_movement_direction = velocity.normalized()
+		if last_movement_direction.x < 0:
+			sprite.flip_h = true
+		else:
+			sprite.flip_h = false
 	else:
 		last_movement_direction = Vector2.ZERO
-
 
 func _physics_process(delta: float):
 	if is_hit_recently:
@@ -74,11 +74,9 @@ func _physics_process(delta: float):
 	update_last_movement_direction(velocity)  # Update the last movement direction
 	move_and_slide()  # Move the monster with the assigned velocity
 
-
 # Function to pick the nearest target player
 func pick_target() -> void:
 	if not players_parent:
-		print("Error: players_parent is null")
 		return
 
 	# Initially set the target_player to null
@@ -94,11 +92,6 @@ func pick_target() -> void:
 				min_distance = distance
 				target_player = child
 
-	if target_player:
-		print("Target player assigned: ", target_player.name)
-	else:
-		print("No valid target player found")
-
 func approach_player(_delta: float) -> Vector2:
 	# Ensure that the target is valid
 	if target_player and is_instance_valid(target_player):
@@ -106,8 +99,6 @@ func approach_player(_delta: float) -> Vector2:
 		if distance > MIN_DISTANCE:
 			return (target_player.position - global_position).normalized() * SPEED
 	else:
-		print("Invalid target or too close. Picking new target.")
-		# Pick a new target if the current one is invalid or too close
 		pick_target()
 		if target_player and is_instance_valid(target_player):
 			return (target_player.position - global_position).normalized() * SPEED
@@ -130,7 +121,6 @@ func start_flash():
 func stop_flash():
 	sprite.modulate = Color(1, 1, 1)
 
-
 # Applies damage to the monster
 func apply_damage(damage_amount: int):
 	if is_hit_recently:
@@ -145,7 +135,6 @@ func apply_damage(damage_amount: int):
 func _request_damage(damage_amount: int):
 	if multiplayer.is_server():
 		_apply_damage(damage_amount)
-
 
 func _apply_damage(damage_amount: int):
 	if is_hit_recently:
@@ -162,16 +151,13 @@ func _apply_damage(damage_amount: int):
 	else:
 		start_flash()
 
-
 @rpc("any_peer")
 func _update_health(new_health: int):
 	print("Updating health to ", new_health)
 	health = new_health
 	if health_bar:
 		health_bar.value = health  # Ensure the health bar is updated
-		
-		
-		
+
 func die():
 	if is_dying:
 		return  # Prevent re-entry if already dying
@@ -193,7 +179,6 @@ func _enemy_died():
 	queue_free()  # This method will be called when the timer runs out
 
 func _on_death_timeout():
-	print("Death timeout reached, removing enemy")
 	queue_free()  # This method will be called when the timer runs out
 
 func freeze(duration):

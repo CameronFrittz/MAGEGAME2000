@@ -298,6 +298,7 @@ pattern_4 = SubResource("TileMapPattern_a62nf")
 [node name="MAGEGAME" type="Node2D"]
 script = ExtResource("1_6msmm")
 PlayerScene = ExtResource("4_0sq5i")
+HUDScene = ExtResource("3_j1q5l")
 
 [node name="Ocean and Islands" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -419,7 +420,6 @@ position = Vector2(-1137, -891)
 position = Vector2(-8, -224)
 stream = ExtResource("6_sgge5")
 volume_db = -8.295
-autoplay = true
 
 [node name="SpawnLocations" type="Node2D" parent="."]
 
@@ -436,8 +436,5 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="MonsterSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://fireball.tscn", "res://FreezeReticle.tscn")
 spawn_path = NodePath("../Monsters")
 script = ExtResource("8_w8cge")
-
-[node name="hud" parent="." instance=ExtResource("3_j1q5l")]

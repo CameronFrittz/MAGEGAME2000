@@ -18,14 +18,15 @@ script = ExtResource("1_15rw3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.0926175, 0.0926175)
+position = Vector2(-2.70882, -0.133127)
+scale = Vector2(0.025454, 0.025454)
 texture = ExtResource("2_crwo8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 y_sort_enabled = true
+position = Vector2(-2.70882, -0.133127)
 rotation = 0.0306422
-scale = Vector2(0.111921, 0.114387)
+scale = Vector2(0.0312993, 0.0299442)
 polygon = PackedVector2Array(420, -11, 337.554, 208.756, 182, 345, -127, 288, -365, 51, -121, -275, 62.6409, -339.078, 244, -305, 363.955, -170.231)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
