@@ -316,7 +316,7 @@ func start_dash() -> void:
 
 
 	sprite.modulate.a = 0.4  # Make player semi-transparent
-	%DashSFX.pitch_scale = randf_range(4,4.5)
+	%DashSFX.pitch_scale = randf_range(2,2.5)
 	%DashSFX.playing = true
 	
 

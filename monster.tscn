@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://qo6tbrl3s5cc"]
+[gd_scene load_steps=33 format=3 uid="uid://qo6tbrl3s5cc"]
 
 [ext_resource type="Script" path="res://Monster.gd" id="1_hqut6"]
 [ext_resource type="Texture2D" uid="uid://dujpxlv25ahbk" path="res://Monster.png" id="2_0w6fd"]
+[ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://MonsterGrunt.wav" id="3_g2id6"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -540,6 +541,11 @@ show_percentage = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_r6i34")
+
+[node name="GruntSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_g2id6")
+volume_db = -4.473
 
 [connection signal="enemy_died" from="." to="." method="_on_enemy_died"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

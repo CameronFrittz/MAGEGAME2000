@@ -128,8 +128,12 @@ func apply_damage(damage_amount: int):
 
 	if multiplayer.is_server():
 		_apply_damage(damage_amount)
+		%GruntSFX.pitch_scale = randf_range(1,1.5)
+		%GruntSFX.playing = true
 	else:
 		rpc_id(1, "_request_damage", damage_amount)
+		%GruntSFX.pitch_scale = randf_range(1,1.5)
+		%GruntSFX.playing = true
 
 @rpc("any_peer", "call_local")
 func _request_damage(damage_amount: int):
@@ -143,7 +147,6 @@ func _apply_damage(damage_amount: int):
 	health -= damage_amount
 	is_hit_recently = true
 	hit_timer = hit_cooldown  # Reset hit cooldown timer
-
 	rpc("_update_health", health)  # Update health on clients
 	print("Applied damage: ", damage_amount, " New health: ", health)
 	if health <= 0:
@@ -159,6 +162,8 @@ func _update_health(new_health: int):
 		health_bar.value = health  # Ensure the health bar is updated
 
 func die():
+	%GruntSFX.pitch_scale = randf_range(1,1.5)
+	%GruntSFX.playing = true
 	if is_dying:
 		return  # Prevent re-entry if already dying
 	is_dying = true
@@ -172,6 +177,7 @@ func die():
 	deathpausetimer.start()  # Start the timer
 	emit_signal("enemy_died")
 	rpc("_enemy_died")
+	
 
 @rpc("any_peer")
 func _enemy_died():

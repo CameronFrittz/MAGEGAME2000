@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kwdmgi6br8vm"]
+
+[ext_resource type="Texture2D" uid="uid://c3xckhjgd33do" path="res://Bloodpool.png" id="1_6uqf0"]
+
+[node name="BloodPool" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6uqf0")
