@@ -128,19 +128,25 @@ func is_mouse_on_screen() -> bool:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos.x >= 0 and mouse_pos.y >= 0 and mouse_pos.x <= viewport_size.x and mouse_pos.y <= viewport_size.y
 
-func fire_fireball(target_position):
+@rpc("any_peer")
+func fire_fireball_rpc(caster_position: Vector2, target_position: Vector2):
+	if fireball_scene:
+		var fireball_instance = fireball_scene.instantiate()
+		fireball_instance.position = caster_position
+		fireball_instance.rotation = (target_position - caster_position).angle()
+		get_parent().add_child(fireball_instance)
+		%FireBallSFX.pitch_scale = randf_range(1.3, 1.6)
+		%FireBallSFX.playing = true
+	else:
+		print("Fireball scene not preloaded.")
+
+# Modified fire_fireball function to include multiplayer logic
+func fire_fireball(target_position: Vector2):
 	if has_authority() and mana >= FIREBALL_MANA_COST:
-		if fireball_scene:
-			var fireball_instance = fireball_scene.instantiate()
-			fireball_instance.position = position
-			fireball_instance.rotation = (target_position - position).angle()
-			get_parent().add_child(fireball_instance)
-			mana -= FIREBALL_MANA_COST
-			update_mana_display()
-			%FireBallSFX.pitch_scale = randf_range(1.3,1.6)
-			%FireBallSFX.playing = true
-		else:
-			print("Fireball scene not preloaded.")
+		fire_fireball_rpc(global_position, target_position)
+		rpc("fire_fireball_rpc", global_position, target_position)
+		mana -= FIREBALL_MANA_COST
+		update_mana_display()
 	else:
 		print("Not enough mana to cast fireball or no authority.")
 
