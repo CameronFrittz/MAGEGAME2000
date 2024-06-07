@@ -486,6 +486,12 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath(".:is_frozen")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("ProgressBar:value")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("ProgressBar:indeterminate")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Monster" type="CharacterBody2D"]
 z_index = 6
@@ -547,5 +553,4 @@ unique_name_in_owner = true
 stream = ExtResource("3_g2id6")
 volume_db = -4.473
 
-[connection signal="enemy_died" from="." to="." method="_on_enemy_died"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

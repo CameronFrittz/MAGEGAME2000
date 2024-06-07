@@ -78,7 +78,7 @@ func on_inter_round_timeout():
 func spawn_enemy():
 		if enemies_to_spawn > 0:
 			if is_multiplayer_authority():
-				var currentMonster = monsterspawner_node.spawn_monster()
+				var currentMonster = monsterspawner_node.spawn()
 				currentMonster.enemy_died.connect(_on_monster_enemy_died)
 				enemies_to_spawn -= 1
 				alive_enemies += 1
@@ -106,9 +106,9 @@ func _on_monster_enemy_died():
 
 # RPC to update round counter on all clients
 @rpc("any_peer")
-func rpc_update_round_counter(current_round, total_rounds):
-	print("Updating round counter: ", current_round, "/", total_rounds)
-	hud.update_round_counter(current_round, total_rounds)
+func rpc_update_round_counter(_current_round, total_rounds):
+	print("Updating round counter: ", _current_round, "/", total_rounds)
+	hud.update_round_counter(_current_round, total_rounds)
 
 # RPC to update enemies left counter on all clients
 @rpc("any_peer")

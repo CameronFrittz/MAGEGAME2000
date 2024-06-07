@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var speed: float = 200
-@export var damage: int = randf_range(35,70)
+@export var damage: int =  int(randf_range(35,70))
 
 
 func _ready():

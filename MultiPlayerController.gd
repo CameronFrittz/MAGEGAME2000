@@ -18,7 +18,7 @@ func _ready():
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func peer_connected(id):

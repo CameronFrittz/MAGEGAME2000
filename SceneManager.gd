@@ -25,5 +25,5 @@ func _ready():
 		index += 1
 	pass
 
-func _process(delta):
+func _process(_delta):
 	pass

@@ -4,20 +4,22 @@ var monster_scene = preload("res://monster.tscn")
 var spawn_points = []  
 
 func _ready() -> void:
+	spawn_function = Callable(self, "spawn_monster")
 	set_spawn_points()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
-func spawn_monster() -> Node:
+func spawn_monster(_data: Variant) -> Node:
 	var currentMonster = monster_scene.instantiate()
 	var spawn_index = randi() % spawn_points.size()
 	var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 	var spawn_position = spawn_points[spawn_index] + offset
 	currentMonster.global_position = spawn_position
-	%Monsters.add_child(currentMonster, true)
 	return currentMonster
+
+
 
 func set_spawn_points():
 	for point in get_tree().get_nodes_in_group("SpawnPoints"):

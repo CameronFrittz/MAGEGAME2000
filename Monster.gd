@@ -5,23 +5,22 @@ var SPEED: float = 100
 const RETREAT_DISTANCE: float = 200
 const MIN_DISTANCE: float = 20
 const RETREAT_COOLDOWN: float = 5.0
-
+signal enemy_died
 # Health and flashing properties
 @export var health: int = 100
 var flash_duration: float = 0.2
 var is_flashing: bool = false
-signal enemy_died
 @export var is_dying: bool = false
 @export var is_frozen: bool = false
 var monsters_parent: Node
 var players_parent: Node
 var target_player: Node2D
-
+var bloodpool = preload("res://bloodpool.tscn")
 # AI state control
 enum State { APPROACH, RETREAT, COLLIDED }
 var current_state = State.APPROACH
 var retreat_target: Vector2
-
+var health_checked = false
 # Node references
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")
@@ -30,11 +29,10 @@ var is_hit_recently = false
 var hit_timer: float = 0.0
 var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
-@onready var health_bar = $ProgressBar
+@onready  var health_bar = $ProgressBar 
 var last_movement_direction: Vector2 = Vector2.ZERO
-
 func _ready():
-	#$ProgressBar.visible = false
+	health_bar.visible = false
 	players_parent = get_node("/root/MAGEGAME/Players")
 	monsters_parent = get_node("/root/MAGEGAME/Monsters")  # Change this to the correct path
 	add_to_group("enemies")
@@ -51,8 +49,8 @@ func _ready():
 	pick_target_timer.timeout.connect(pick_target)
 	add_child(pick_target_timer)
 
-func update_last_movement_direction(velocity: Vector2) -> void:
-	if velocity.length() > 0:
+func update_last_movement_direction(_velocity: Vector2) -> void:
+	if _velocity.length() > 0:
 		last_movement_direction = velocity.normalized()
 		if last_movement_direction.x < 0:
 			sprite.flip_h = true
@@ -62,6 +60,9 @@ func update_last_movement_direction(velocity: Vector2) -> void:
 		last_movement_direction = Vector2.ZERO
 
 func _physics_process(delta: float):
+	if not health_checked and health != 100:
+		$ProgressBar.visible = true
+		health_checked = true
 	if is_hit_recently:
 		hit_timer -= delta
 		if hit_timer <= 0:
@@ -128,47 +129,39 @@ func stop_flash():
 func apply_damage(damage_amount: int):
 	if is_hit_recently:
 		return 
-
 	if multiplayer.is_server():
-		_apply_damage(damage_amount)
+		if is_hit_recently:
+			return  # Skip applying damage if we are within the cooldown period
+		health -= damage_amount
+		is_hit_recently = true
+		hit_timer = hit_cooldown  # Reset hit cooldown timer
+		if health_bar:
+			health_bar.value = health  # Ensure the health bar is updated
+		print("Applied damage: ", damage_amount, " New health: ", health)
+		if health <= 0:
+			die()
+		else:
+			start_flash()
+		
+		
+		
+		
+		
+		
 		%GruntSFX.pitch_scale = randf_range(1,1.5)
 		%GruntSFX.playing = true
 	else:
-		if health != 100:
-			$ProgressBar.visible = true
-		rpc_id(1, "_request_damage", damage_amount)
 		var droppedbp = bloodpool.instantiate()
 		droppedbp.position = global_position
 		monsters_parent.add_child(droppedbp)
 		%GruntSFX.pitch_scale = randf_range(1,1.5)
 		%GruntSFX.playing = true
 
-@rpc("any_peer", "call_local")
-func _request_damage(damage_amount: int):
-	if multiplayer.is_server():
-		_apply_damage(damage_amount)
 
-func _apply_damage(damage_amount: int):
-	if is_hit_recently:
-		return  # Skip applying damage if we are within the cooldown period
 
-	health -= damage_amount
-	is_hit_recently = true
-	hit_timer = hit_cooldown  # Reset hit cooldown timer
-	rpc("_update_health", health)  # Update health on clients
-	print("Applied damage: ", damage_amount, " New health: ", health)
-	if health <= 0:
-		die()
-	else:
-		start_flash()
 
-@rpc("any_peer")
-func _update_health(new_health: int):
-	print("Updating health to ", new_health)
-	health = new_health
-	if health_bar:
-		health_bar.value = health  # Ensure the health bar is updated
-var bloodpool = preload("res://bloodpool.tscn")
+
+
 func die():
 	%GruntSFX.pitch_scale = randf_range(1,1.5)
 	%GruntSFX.playing = true
@@ -184,10 +177,9 @@ func die():
 	deathpausetimer.timeout.connect(_on_death_timeout)  # Connect timeout signal to a function
 	deathpausetimer.start()  # Start the timer
 	emit_signal("enemy_died")
-	rpc("_enemy_died")
+	_enemy_died()
 	
 
-@rpc("any_peer")
 func _enemy_died():
 	if is_multiplayer_authority():
 		print("Despawning enemy")
@@ -196,7 +188,7 @@ func _enemy_died():
 func _on_death_timeout():
 	if is_multiplayer_authority():
 		queue_free()  # This method will be called when the timer runs out
-
+#
 func freeze(duration):
 	is_frozen = true
 	if is_frozen == true:
@@ -229,4 +221,4 @@ func apply_freeze_damage(damage_amount: int):
 		start_flash()
 
 func _apply_freeze_damage():
-	apply_freeze_damage(randf_range(2, 5))  # Apply 2-5 damage every second
+	apply_freeze_damage(int(randf_range(2, 5)))  # Apply 2-5 damage every second

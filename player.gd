@@ -12,7 +12,7 @@ const MANA_REGEN_RATE: float = 3.0  # Mana regeneration rate per second
 const DAMAGE_COOLDOWN = 1  # 3 seconds cooldown
 var damage_cooldown_timer: float = 0.0
 @export var enemyattackdamage = randf_range(40, 80)
-@onready var camera = $Camera2D as Camera2D
+@onready var playercamera = $Camera2D as Camera2D
 # Preloaded scenes and instances
 var fireball_scene = preload("res://fireball.tscn")    
 var reticle_scene = preload("res://reticle.tscn")
@@ -161,13 +161,10 @@ func change_zoom_level(change: int):
 	target_zoom = ZOOM_LEVELS[current_zoom_index]
 
 
-# Process function to manage timed updates
-func _process(delta: float):
-	var camera = get_node("Camera2D")
-	if camera:
-		camera.zoom = camera.zoom.lerp(target_zoom, ZOOM_SPEED * delta)
 
-	# Regenerate mana
+func _process(delta: float):
+	if playercamera:
+		playercamera.zoom = playercamera.zoom.lerp(target_zoom, ZOOM_SPEED * delta)
 	if mana < max_mana:
 		mana += MANA_REGEN_RATE * delta
 		mana = min(mana, max_mana)  # Ensure mana does not exceed max
@@ -222,8 +219,8 @@ func _ready():
 		update_hud()
 	else:
 		print("HUD not found. Check the node path or structure.")
-	if camera:
-		target_zoom = camera.zoom
+	if playercamera:
+		target_zoom = playercamera.zoom
 	else:
 		print("Cannot invert transform due to zero scale")
 	assert(scale.x != 0 and scale.y != 0, "Scale should not be zero to avoid inversion errors.")

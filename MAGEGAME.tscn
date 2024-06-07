@@ -371,6 +371,7 @@ polygon = PackedVector2Array(-188.864, 48.1115, -340.455, -9.23878, -499.545, 52
 polygon = PackedVector2Array(-1841, -80, -1135, 279, -570, 2, -1102, -261, -1126, -244, -1330, -342)
 
 [node name="GameController" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("6_xcg26")
 
 [node name="SpawnPoint1" type="Node2D" parent="GameController" groups=["SpawnPoints"]]
@@ -441,6 +442,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="SpawnLocations" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="0" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
 position = Vector2(-245, -121)
