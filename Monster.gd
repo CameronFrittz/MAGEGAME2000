@@ -189,11 +189,13 @@ func die():
 
 @rpc("any_peer")
 func _enemy_died():
-	print("Despawning enemy")
-	queue_free()  # This method will be called when the timer runs out
+	if is_multiplayer_authority():
+		print("Despawning enemy")
+		queue_free()  # This method will be called when the timer runs out
 
 func _on_death_timeout():
-	queue_free()  # This method will be called when the timer runs out
+	if is_multiplayer_authority():
+		queue_free()  # This method will be called when the timer runs out
 
 func freeze(duration):
 	is_frozen = true

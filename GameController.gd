@@ -77,11 +77,12 @@ func on_inter_round_timeout():
 
 func spawn_enemy():
 		if enemies_to_spawn > 0:
-			var currentMonster = monsterspawner_node.spawn_monster()
-			currentMonster.enemy_died.connect(_on_monster_enemy_died)
-			enemies_to_spawn -= 1
-			alive_enemies += 1
-			rpc("rpc_update_enemies_left_counter", alive_enemies)
+			if is_multiplayer_authority():
+				var currentMonster = monsterspawner_node.spawn_monster()
+				currentMonster.enemy_died.connect(_on_monster_enemy_died)
+				enemies_to_spawn -= 1
+				alive_enemies += 1
+				rpc("rpc_update_enemies_left_counter", alive_enemies)
 		else:
 			spawn_timer.stop()
 
