@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cgbqi6vsvkxjg"
-path="res://.godot/imported/FireballPassByHeavy_SFXB._1.wav-31099547a6919b80893f3f8b91dc2a22.sample"
+path="res://.godot/imported/FireballPassByHeavy_SFXB._1.wav-06b83cfb2a8b1d3ee48baefeb738ad3c.sample"
 
 [deps]
 
-source_file="res://FireballPassByHeavy_SFXB._1.wav"
-dest_files=["res://.godot/imported/FireballPassByHeavy_SFXB._1.wav-31099547a6919b80893f3f8b91dc2a22.sample"]
+source_file="res://SFX/FireballPassByHeavy_SFXB._1.wav"
+dest_files=["res://.godot/imported/FireballPassByHeavy_SFXB._1.wav-06b83cfb2a8b1d3ee48baefeb738ad3c.sample"]
 
 [params]
 

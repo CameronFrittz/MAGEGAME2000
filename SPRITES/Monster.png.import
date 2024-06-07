@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c21ejooj5g1nb"
-path="res://.godot/imported/Aimer.png-7ad1b871c59559514001213adf69d692.ctex"
+uid="uid://dujpxlv25ahbk"
+path="res://.godot/imported/Monster.png-5b00e95b6f4bac36d3c48a5b8f21cdec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aimer.png"
-dest_files=["res://.godot/imported/Aimer.png-7ad1b871c59559514001213adf69d692.ctex"]
+source_file="res://SPRITES/Monster.png"
+dest_files=["res://.godot/imported/Monster.png-5b00e95b6f4bac36d3c48a5b8f21cdec.ctex"]
 
 [params]
 

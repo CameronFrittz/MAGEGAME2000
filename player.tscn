@@ -1,10 +1,10 @@
 [gd_scene load_steps=33 format=3 uid="uid://bhsnp72cip8du"]
 
-[ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://skeleton_mage_high.png" id="1_2aoey"]
+[ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
 [ext_resource type="Script" path="res://player.gd" id="1_3grgq"]
-[ext_resource type="AudioStream" uid="uid://06ei3vwc5lou" path="res://Whip_Whoosh_BW.11029.wav" id="3_1edxq"]
-[ext_resource type="AudioStream" uid="uid://cgbqi6vsvkxjg" path="res://FireballPassByHeavy_SFXB._1.wav" id="4_qg008"]
-[ext_resource type="AudioStream" uid="uid://1deeyh63h0vv" path="res://Scurry.wav" id="5_i2e14"]
+[ext_resource type="AudioStream" uid="uid://06ei3vwc5lou" path="res://SFX/Whip_Whoosh_BW.11029.wav" id="3_1edxq"]
+[ext_resource type="AudioStream" uid="uid://cgbqi6vsvkxjg" path="res://SFX/FireballPassByHeavy_SFXB._1.wav" id="4_qg008"]
+[ext_resource type="AudioStream" uid="uid://1deeyh63h0vv" path="res://SFX/Scurry.wav" id="5_i2e14"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"

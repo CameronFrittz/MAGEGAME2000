@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3xckhjgd33do"
-path="res://.godot/imported/Bloodpool.png-52e4b4fbaf1c83187ba1176510c1fd73.ctex"
+uid="uid://bosm2aqyi24vx"
+path="res://.godot/imported/isometric tiles.png-d90c9d7c36c83b59359d87789f4f4466.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bloodpool.png"
-dest_files=["res://.godot/imported/Bloodpool.png-52e4b4fbaf1c83187ba1176510c1fd73.ctex"]
+source_file="res://SPRITES/isometric tiles.png"
+dest_files=["res://.godot/imported/isometric tiles.png-d90c9d7c36c83b59359d87789f4f4466.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drkkjd8rc754f"
-path="res://.godot/imported/BloodpoolSm.png-2e8c3e25ba3027688acd0602e37276e3.ctex"
+uid="uid://cqu61ay4gj3u2"
+path="res://.godot/imported/SnowyGrassAndTrees_Set_01_8Tiles_256x256.png-fd8ce04cd8c6db1b02a96fe3254528e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BloodpoolSm.png"
-dest_files=["res://.godot/imported/BloodpoolSm.png-2e8c3e25ba3027688acd0602e37276e3.ctex"]
+source_file="res://SPRITES/SnowyGrassAndTrees_Set_01_8Tiles_256x256.png"
+dest_files=["res://.godot/imported/SnowyGrassAndTrees_Set_01_8Tiles_256x256.png-fd8ce04cd8c6db1b02a96fe3254528e4.ctex"]
 
 [params]
 

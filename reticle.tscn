@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3myciitpik41"]
 
-[ext_resource type="Texture2D" uid="uid://c21ejooj5g1nb" path="res://Aimer.png" id="1_a3mki"]
+[ext_resource type="Texture2D" uid="uid://c21ejooj5g1nb" path="res://SPRITES/Aimer.png" id="1_a3mki"]
 [ext_resource type="Shader" path="res://reticle.gdshader" id="1_qkkqg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6kdo"]

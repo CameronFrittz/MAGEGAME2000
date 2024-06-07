@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://1deeyh63h0vv"
-path="res://.godot/imported/Scurry.wav-0b5af85d5834b692d69868a85b116173.sample"
+uid="uid://cjt7hrmvnqc0b"
+path="res://.godot/imported/MonsterGrunt.wav-ae911acbb0a74192d74b7b16f0280dcf.sample"
 
 [deps]
 
-source_file="res://Scurry.wav"
-dest_files=["res://.godot/imported/Scurry.wav-0b5af85d5834b692d69868a85b116173.sample"]
+source_file="res://SFX/MonsterGrunt.wav"
+dest_files=["res://.godot/imported/MonsterGrunt.wav-ae911acbb0a74192d74b7b16f0280dcf.sample"]
 
 [params]
 

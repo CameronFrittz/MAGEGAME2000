@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be17xix2p17c4"
-path="res://.godot/imported/skeleton_mage_high.png-2ce331c1a179b91b1b837e800831ed18.ctex"
+uid="uid://c3xckhjgd33do"
+path="res://.godot/imported/Bloodpool.png-4dd8405eebd15138793b365d3f4155f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://skeleton_mage_high.png"
-dest_files=["res://.godot/imported/skeleton_mage_high.png-2ce331c1a179b91b1b837e800831ed18.ctex"]
+source_file="res://SPRITES/Bloodpool.png"
+dest_files=["res://.godot/imported/Bloodpool.png-4dd8405eebd15138793b365d3f4155f7.ctex"]
 
 [params]
 

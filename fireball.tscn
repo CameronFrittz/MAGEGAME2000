@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://do6y32iiouma0"]
 
 [ext_resource type="Script" path="res://Fireball.gd" id="1_15rw3"]
-[ext_resource type="Texture2D" uid="uid://crqkpsklf057w" path="res://Fireball.png" id="2_crwo8"]
+[ext_resource type="Texture2D" uid="uid://crqkpsklf057w" path="res://SPRITES/Fireball.png" id="2_crwo8"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e31b0"]
 properties/0/path = NodePath(".:position")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dujpxlv25ahbk"
-path="res://.godot/imported/Monster.png-7d177ee4b79f9120b8bae3d4e3d7bc00.ctex"
+uid="uid://d3xj0etlbugqc"
+path="res://.godot/imported/StunReticle.png-bafd39b38178b314fc17e1615ca00907.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Monster.png"
-dest_files=["res://.godot/imported/Monster.png-7d177ee4b79f9120b8bae3d4e3d7bc00.ctex"]
+source_file="res://SPRITES/StunReticle.png"
+dest_files=["res://.godot/imported/StunReticle.png-bafd39b38178b314fc17e1615ca00907.ctex"]
 
 [params]
 

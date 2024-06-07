@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3xj0etlbugqc"
-path="res://.godot/imported/StunReticle.png-66808cc027ed79a3ab46dbbfb76695cb.ctex"
+uid="uid://crqkpsklf057w"
+path="res://.godot/imported/Fireball.png-1dff0be349d13c3a2adf516b08eade0b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://StunReticle.png"
-dest_files=["res://.godot/imported/StunReticle.png-66808cc027ed79a3ab46dbbfb76695cb.ctex"]
+source_file="res://SPRITES/Fireball.png"
+dest_files=["res://.godot/imported/Fireball.png-1dff0be349d13c3a2adf516b08eade0b.ctex"]
 
 [params]
 

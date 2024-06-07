@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dtr4ej34oy44s"]
 
 [ext_resource type="Script" path="res://FreezeReticle.gd" id="1_7v4gh"]
-[ext_resource type="Texture2D" uid="uid://d3xj0etlbugqc" path="res://StunReticle.png" id="1_rfyts"]
+[ext_resource type="Texture2D" uid="uid://d3xj0etlbugqc" path="res://SPRITES/StunReticle.png" id="1_rfyts"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pyili"]
 radius = 453.079

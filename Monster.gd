@@ -13,6 +13,7 @@ var is_flashing: bool = false
 signal enemy_died
 @export var is_dying: bool = false
 @export var is_frozen: bool = false
+var monsters_parent: Node
 var players_parent: Node
 var target_player: Node2D
 
@@ -33,7 +34,9 @@ var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 var last_movement_direction: Vector2 = Vector2.ZERO
 
 func _ready():
-	players_parent = get_node("/root/MAGEGAME/Players")  # Change this to the correct path
+	#$ProgressBar.visible = false
+	players_parent = get_node("/root/MAGEGAME/Players")
+	monsters_parent = get_node("/root/MAGEGAME/Monsters")  # Change this to the correct path
 	add_to_group("enemies")
 	flash_timer = Timer.new()  # Create a new Timer instance
 	flash_timer.wait_time = flash_duration  # Set the wait time
@@ -131,7 +134,12 @@ func apply_damage(damage_amount: int):
 		%GruntSFX.pitch_scale = randf_range(1,1.5)
 		%GruntSFX.playing = true
 	else:
+		if health != 100:
+			$ProgressBar.visible = true
 		rpc_id(1, "_request_damage", damage_amount)
+		var droppedbp = bloodpool.instantiate()
+		droppedbp.position = global_position
+		monsters_parent.add_child(droppedbp)
 		%GruntSFX.pitch_scale = randf_range(1,1.5)
 		%GruntSFX.playing = true
 
@@ -160,7 +168,7 @@ func _update_health(new_health: int):
 	health = new_health
 	if health_bar:
 		health_bar.value = health  # Ensure the health bar is updated
-
+var bloodpool = preload("res://bloodpool.tscn")
 func die():
 	%GruntSFX.pitch_scale = randf_range(1,1.5)
 	%GruntSFX.playing = true

@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=3 uid="uid://qo6tbrl3s5cc"]
 
 [ext_resource type="Script" path="res://Monster.gd" id="1_hqut6"]
-[ext_resource type="Texture2D" uid="uid://dujpxlv25ahbk" path="res://Monster.png" id="2_0w6fd"]
-[ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://MonsterGrunt.wav" id="3_g2id6"]
+[ext_resource type="Texture2D" uid="uid://dujpxlv25ahbk" path="res://SPRITES/Monster.png" id="2_0w6fd"]
+[ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://SFX/MonsterGrunt.wav" id="3_g2id6"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -488,7 +488,7 @@ properties/4/spawn = true
 properties/4/replication_mode = 1
 
 [node name="Monster" type="CharacterBody2D"]
-z_index = 5
+z_index = 6
 y_sort_enabled = true
 collision_mask = 3
 script = ExtResource("1_hqut6")

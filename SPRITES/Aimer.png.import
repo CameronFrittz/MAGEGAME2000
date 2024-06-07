@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqu61ay4gj3u2"
-path="res://.godot/imported/SnowyGrassAndTrees_Set_01_8Tiles_256x256.png-196b5c699a7d2f616066857d6e17daaf.ctex"
+uid="uid://c21ejooj5g1nb"
+path="res://.godot/imported/Aimer.png-ecc6301fc848de609a6234496868daf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SnowyGrassAndTrees_Set_01_8Tiles_256x256.png"
-dest_files=["res://.godot/imported/SnowyGrassAndTrees_Set_01_8Tiles_256x256.png-196b5c699a7d2f616066857d6e17daaf.ctex"]
+source_file="res://SPRITES/Aimer.png"
+dest_files=["res://.godot/imported/Aimer.png-ecc6301fc848de609a6234496868daf9.ctex"]
 
 [params]
 

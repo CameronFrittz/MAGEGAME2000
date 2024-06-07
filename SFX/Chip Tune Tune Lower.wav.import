@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ba5e7li0wi0l0"
-path="res://.godot/imported/Chip Tune Tune Lower.wav-4e5fb5417d6d2c0a14849b535b24d9a6.sample"
+path="res://.godot/imported/Chip Tune Tune Lower.wav-83062bc4910eed4bb57a927c3981c214.sample"
 
 [deps]
 
-source_file="res://Chip Tune Tune Lower.wav"
-dest_files=["res://.godot/imported/Chip Tune Tune Lower.wav-4e5fb5417d6d2c0a14849b535b24d9a6.sample"]
+source_file="res://SFX/Chip Tune Tune Lower.wav"
+dest_files=["res://.godot/imported/Chip Tune Tune Lower.wav-83062bc4910eed4bb57a927c3981c214.sample"]
 
 [params]
 

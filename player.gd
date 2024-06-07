@@ -18,7 +18,7 @@ var fireball_scene = preload("res://fireball.tscn")
 var reticle_scene = preload("res://reticle.tscn")
 var freeze_reticle_scene = preload("res://FreezeReticle.tscn")  # Updated preload
 var reticle_instance = null
-var stun_reticle_texture = preload("res://StunReticle.png")  # Texture for the freeze effect visualization
+var stun_reticle_texture = preload("res://SPRITES/StunReticle.png")  # Texture for the freeze effect visualization
 
 # Constants and variables for the freeze ability
 const FREEZE_RADIUS: float = 150.0  # Adjust this for your game's scale

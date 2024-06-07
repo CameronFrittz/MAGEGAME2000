@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bosm2aqyi24vx"
-path="res://.godot/imported/isometric tiles.png-b1953c361d479fafbb482e172334e97c.ctex"
+uid="uid://be17xix2p17c4"
+path="res://.godot/imported/skeleton_mage_high.png-c9b3bade6f22c78cc6347bcd1eadc44a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://isometric tiles.png"
-dest_files=["res://.godot/imported/isometric tiles.png-b1953c361d479fafbb482e172334e97c.ctex"]
+source_file="res://SPRITES/skeleton_mage_high.png"
+dest_files=["res://.godot/imported/skeleton_mage_high.png-c9b3bade6f22c78cc6347bcd1eadc44a.ctex"]
 
 [params]
 
