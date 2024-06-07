@@ -497,7 +497,7 @@ script = ExtResource("1_hqut6")
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-3, 0)
-scale = Vector2(0.950407, 0.950407)
+scale = Vector2(1.1817, 1.1817)
 texture = ExtResource("2_0w6fd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
