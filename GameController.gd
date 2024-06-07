@@ -5,7 +5,7 @@ const ROUND_DURATION = 120  # Duration of each round in seconds
 const INTER_ROUND_DURATION = 5  # Duration between rounds in seconds
 var alive_enemies = 0
 # Enemy spawn information
-var rounds = [5, 10, 20, 30, 50, 70, 90, 120, 150, 180, 250, 300, 350, 400, 420, 440, 500]
+var rounds = [5, 10, 20, 30, 50, 70, 90, 120, 150, 180, 250, 300, 350, 400, 420, 440, 500, 550, 600, 650]
 var current_round = 0
 var enemy_scene = preload("res://monster.tscn")  # Assuming you have an enemy scene ready
 
