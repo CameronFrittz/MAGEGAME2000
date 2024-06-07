@@ -12,7 +12,7 @@ predelay_feedback = 0.17
 room_size = 0.34
 damping = 1.0
 hipass = 0.56
-wet = 0.14
+wet = 0.18
 
 [resource]
 bus/1/name = &"SFX"

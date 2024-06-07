@@ -23,7 +23,9 @@ var enemies_to_spawn = 0  # This will track how many enemies are left to spawn
 func _ready():
 	hud = get_node("/root/MAGEGAME/hud")  # Ensure correct path
 	initialize_timers()
-	start_round()  # Start the first round immediately
+	inter_round_timer.stop()  # Stop any existing inter-round timer before starting a new one
+	print("Inter-round break started.")
+	inter_round_timer.start()
 
 func initialize_timers():
 	add_child(round_timer)
