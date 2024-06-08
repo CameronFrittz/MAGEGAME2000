@@ -469,16 +469,16 @@ _data = {
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v3cba"]
 properties/0/path = NodePath("AnimationPlayer:current_animation")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath("Sprite2D:modulate")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath("AttackArea:monitoring")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 properties/3/path = NodePath(".:health")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:mana")
 properties/4/spawn = true
 properties/4/replication_mode = 2
@@ -539,10 +539,6 @@ polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_v3cba")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://fireball.tscn", "res://FreezeReticle.tscn")
-spawn_path = NodePath("..")
-
 [node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_1edxq")
@@ -562,5 +558,15 @@ unique_name_in_owner = true
 stream = ExtResource("5_i2e14")
 volume_db = -6.325
 bus = &"Player"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+y_sort_enabled = true
+position = Vector2(-0.68, 0.32)
+scale = Vector2(0.847194, 2.83933)
+polygon = PackedVector2Array(-2.61988, -3.47826, -4, 6, 8.51462, 4.86956, 7.85965, -3.47826)
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

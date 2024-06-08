@@ -194,23 +194,24 @@ func update_reticle_position_with_mouse():
 
 # Update reticle position based on joystick direction
 func update_reticle_position_with_joystick(delta: float):
-	var joystick_direction_x = Input.get_action_strength("ui_right_stick_x") - Input.get_action_strength("ui_left_stick_x")
-	var joystick_direction_y = Input.get_action_strength("ui_down_stick_y") - Input.get_action_strength("ui_up_stick_y")
-	var joystick_direction = Vector2(joystick_direction_x, joystick_direction_y) * JOYSTICK_SENSITIVITY
+	if has_authority():
+		var joystick_direction_x = Input.get_action_strength("ui_right_stick_x") - Input.get_action_strength("ui_left_stick_x")
+		var joystick_direction_y = Input.get_action_strength("ui_down_stick_y") - Input.get_action_strength("ui_up_stick_y")
+		var joystick_direction = Vector2(joystick_direction_x, joystick_direction_y) * JOYSTICK_SENSITIVITY
 
-	print("Joystick Direction X: ", joystick_direction_x)
-	print("Joystick Direction Y: ", joystick_direction_y)
+		print("Joystick Direction X: ", joystick_direction_x)
+		print("Joystick Direction Y: ", joystick_direction_y)
 
-	# Ensure the joystick direction takes both positive and negative values
-	if reticle_instance and reticle_instance.is_inside_tree():
-		reticle_instance.position += joystick_direction * delta
+		# Ensure the joystick direction takes both positive and negative values
+		if reticle_instance and reticle_instance.is_inside_tree():
+			reticle_instance.position += joystick_direction * delta
 
-		# Ensure the reticle stays within the viewport
-		var viewport_rect = get_viewport_rect()
-		reticle_instance.position.x = clamp(reticle_instance.position.x, -999, viewport_rect.size.x)
-		reticle_instance.position.y = clamp(reticle_instance.position.y, -999, viewport_rect.size.y)
+			# Ensure the reticle stays within the viewport
+			var viewport_rect = get_viewport_rect()
+			reticle_instance.position.x = clamp(reticle_instance.position.x, -999, viewport_rect.size.x)
+			reticle_instance.position.y = clamp(reticle_instance.position.y, -999, viewport_rect.size.y)
 
-		print("Reticle Position: ", reticle_instance.position)  # Debug print
+			print("Reticle Position: ", reticle_instance.position)  # Debug print
 
 # Initial setup of the scene
 func _ready():
@@ -233,7 +234,7 @@ func _ready():
 
 # Manage physical movements and attacks
 func _physics_process(delta: float) -> void:
-	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+	if has_authority():
 		if is_knocked_back:
 			knockback_timer -= delta
 			if knockback_timer <= 0:
