@@ -559,11 +559,11 @@ stream = ExtResource("5_i2e14")
 volume_db = -6.325
 bus = &"Player"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="BuildingFade" type="Area2D" parent="."]
 collision_layer = 2147483648
 collision_mask = 2147483648
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingFade"]
 y_sort_enabled = true
 position = Vector2(-0.68, 0.32)
 scale = Vector2(0.847194, 2.83933)

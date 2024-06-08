@@ -5,6 +5,9 @@ var is_faded_out = false  # Boolean to track fade-out state
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var modulate_color = modulate
+	modulate_color.a = 1.0
+	modulate = modulate_color
 	pass
 
 func _process(delta: float) -> void:
