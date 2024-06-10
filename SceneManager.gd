@@ -9,6 +9,7 @@ func _ready():
 		if player_id == 1:
 			continue
 		var currentPlayer = PlayerSpawner_node.spawn()
+		#Getting a breakpoint here because it returns a null ptr
 		currentPlayer.name = str(player_id)
 		
 		if index < spawn_points.size():
