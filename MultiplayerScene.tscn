@@ -21,7 +21,6 @@ offset_bottom = 751.0
 color = Color(0.0798585, 0.123611, 0.133157, 1)
 
 [node name="Host" type="Button" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 268.0
 offset_top = 468.0

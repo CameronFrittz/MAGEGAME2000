@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var PlayerScene: PackedScene
+@onready var PlayerSpawner_node = get_node("PlayerSpawner")
 
 func _ready():
 	var index = 0
@@ -8,9 +8,8 @@ func _ready():
 	for player_id in GameManager.Players:
 		if player_id == 1:
 			continue
-		var currentPlayer = PlayerScene.instantiate()
+		var currentPlayer = PlayerSpawner_node.spawn()
 		currentPlayer.name = str(player_id)
-		%Players.add_child(currentPlayer)
 		
 		if index < spawn_points.size():
 			var spawn = spawn_points[index]
