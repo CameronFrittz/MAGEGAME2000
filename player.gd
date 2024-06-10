@@ -209,7 +209,6 @@ func update_reticle_position_with_joystick(delta: float):
 
 # Initial setup of the scene
 func _ready():
-	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
 	if hud:
 		update_hud()
 	else:

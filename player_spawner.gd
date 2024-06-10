@@ -8,6 +8,7 @@ func _ready() -> void:
 
 func spawn_player(data: Variant) -> Node:
 	var currentPlayer = player_scene.instantiate()
+	currentPlayer.set_multiplayer_authority(data, true)
 	return currentPlayer
 
 
