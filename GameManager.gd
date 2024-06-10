@@ -1,6 +1,6 @@
 extends Node
 
-var Players = {}
+#var Players = {}
 
 func _ready():
 	pass
