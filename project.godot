@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MAGEGAME"
-run/main_scene="res://MAGEGAME.tscn"
+run/main_scene="res://MultiplayerScene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.21464, 0.000302045, 0.318002, 1)
 boot_splash/show_image=false

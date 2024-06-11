@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed: float = 200
 @export var damage: int =  int(randf_range(35,70))
-
+var velocity
 
 func _ready():
 	var timer = Timer.new()
@@ -16,7 +16,7 @@ func _physics_process(delta):
 	position += Vector2(speed, 0).rotated(rotation) * delta
 	
 func _process(delta):
-	var velocity = Vector2(speed, 0).rotated(rotation)
+	velocity = Vector2(speed, 0).rotated(rotation)
 	position += velocity * delta
 
 func on_timer_timeout():

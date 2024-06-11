@@ -1,17 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://do6y32iiouma0"]
+[gd_scene load_steps=3 format=3 uid="uid://do6y32iiouma0"]
 
 [ext_resource type="Script" path="res://Fireball.gd" id="1_15rw3"]
 [ext_resource type="Texture2D" uid="uid://crqkpsklf057w" path="res://SPRITES/Fireball.png" id="2_crwo8"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e31b0"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
 [node name="FireBall" type="Area2D"]
 z_index = 5
 y_sort_enabled = true
-position = Vector2(-69, 43)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_15rw3")
@@ -28,8 +22,5 @@ position = Vector2(-2.70882, -0.133127)
 rotation = 0.0306422
 scale = Vector2(0.0312993, 0.0299442)
 polygon = PackedVector2Array(420, -11, 337.554, 208.756, 182, 345, -127, 288, -365, 51, -121, -275, 62.6409, -339.078, 244, -305, 363.955, -170.231)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_e31b0")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

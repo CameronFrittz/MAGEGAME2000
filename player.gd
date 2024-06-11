@@ -74,7 +74,7 @@ var target_zoom: Vector2 = ZOOM_LEVELS[current_zoom_index]
 const JOYSTICK_SENSITIVITY: float = 325.0  # Adjust as needed
 
 # Process input for various actions
-func _input(event):
+func _input(event): 
 	if event.is_action_pressed("fire"):
 		if not reticle_instance:
 			reticle_instance = reticle_scene.instantiate()
@@ -128,27 +128,21 @@ func is_mouse_on_screen() -> bool:
 	var mouse_pos = get_viewport().get_mouse_position()
 	return mouse_pos.x >= 0 and mouse_pos.y >= 0 and mouse_pos.x <= viewport_size.x and mouse_pos.y <= viewport_size.y
 
-@rpc("any_peer")
-func fire_fireball_rpc(caster_position: Vector2, target_position: Vector2):
-	if fireball_scene:
-		var fireball_instance = fireball_scene.instantiate()
-		fireball_instance.position = caster_position
-		fireball_instance.rotation = (target_position - caster_position).angle()
-		get_parent().add_child(fireball_instance)
+@onready var fireball_spawner = get_node("FireballSpawner")
+
+
+func fire_fireball(target_position):
+	if has_authority() and mana >= FIREBALL_MANA_COST:
+		var data := {"peer_id": multiplayer.get_unique_id(),"target_position": target_position, "spawn_position": global_position}
+		fireball_spawner.spawn(data)
+		mana -= FIREBALL_MANA_COST
+		update_mana_display()
 		%FireBallSFX.pitch_scale = randf_range(1.3, 1.6)
 		%FireBallSFX.playing = true
 	else:
-		print("Fireball scene not preloaded.")
-
-# Modified fire_fireball function to include multiplayer logic
-func fire_fireball(target_position: Vector2):
-	if has_authority() and mana >= FIREBALL_MANA_COST:
-		fire_fireball_rpc(global_position, target_position)
-		rpc("fire_fireball_rpc", global_position, target_position)
-		mana -= FIREBALL_MANA_COST
-		update_mana_display()
-	else:
 		print("Not enough mana to cast fireball or no authority.")
+
+
 
 # Update mana display on the HUD
 func update_mana_display():
@@ -214,8 +208,10 @@ func update_reticle_position_with_joystick(delta: float):
 			print("Reticle Position: ", reticle_instance.position)  # Debug print
 
 # Initial setup of the scene
-func _ready():
-	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+func _ready(): 
+	if has_authority():
+		var player_camera = get_node("Camera2D")
+		player_camera.make_current()
 	if hud:
 		update_hud()
 	else:
@@ -234,7 +230,7 @@ func _ready():
 
 # Manage physical movements and attacks
 func _physics_process(delta: float) -> void:
-	if has_authority():
+	if has_authority(): 
 		if is_knocked_back:
 			knockback_timer -= delta
 			if knockback_timer <= 0:
@@ -457,7 +453,7 @@ func _apply_damage(damage_amount: int):
 	update_hud()
 	start_flash()
 
-@rpc("any_peer", "call_local")
+#@rpc("any_peer", "call_local")
 func _request_damage(damage_amount: int):
 	if multiplayer.is_server():
 		rpc_id(multiplayer.get_unique_id(), "_apply_damage", damage_amount)
@@ -495,13 +491,15 @@ func start_flash():
 func stop_flash():
 	sprite.modulate = Color(1, 1, 1)
 
+@onready var fret_spawner = get_node("FreezeReticleSpawner")
+
 # Function to show the freeze reticle without triggering freeze
 func show_freeze_reticle():
 	if has_authority() and freeze_reticle == null and freeze_cooldown_timer <= 0:
-		freeze_reticle = freeze_reticle_scene.instantiate()
+		freeze_reticle = fret_spawner.spawn()
+		#Getting a breakpoint here because it returns a null ptr
 		freeze_reticle.get_node("Sprite2D").texture = stun_reticle_texture
 		freeze_reticle.get_node("Sprite2D").modulate.a = 0.5  # Set alpha to 0.5 while aiming
-		get_parent().add_child(freeze_reticle)  # Add to the same level as the player
 		freeze_reticle.global_position = global_position
 		freeze_reticle.z_index = 5
 		var scale_factor = (4.25 * FREEZE_RADIUS) / freeze_reticle.get_node("Sprite2D").texture.get_size().x
@@ -534,18 +532,19 @@ func trigger_freeze():
 
 # Function to remove the reticle after the freeze duration
 func _on_freeze_duration_timeout():
-	if freeze_reticle:
+	if has_authority() and freeze_reticle:
 		freeze_reticle.queue_free()
 		freeze_reticle = null
 
 # Handle player death
 func die():
-	print("Player has died")
-	emit_signal("player_died")  # Signal that other parts of the game can listen to
+	if has_authority():	
+		print("Player has died")
+		emit_signal("player_died")  # Signal that other parts of the game can listen to
 
-	# Optionally play a death animation before removing the player
-	var animation_player = get_node("AnimationPlayer")
-	if animation_player:
-		animation_player.play("Death")
-		await get_tree().create_timer(animation_player.get_current_animation_length()).timeout
-	queue_free()
+		# Optionally play a death animation before removing the player
+		var animation_player = get_node("AnimationPlayer")
+		if animation_player:
+			animation_player.play("Death")
+			await get_tree().create_timer(animation_player.get_current_animation_length()).timeout
+		queue_free()

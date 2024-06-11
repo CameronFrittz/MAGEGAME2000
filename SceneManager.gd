@@ -1,29 +1,26 @@
 extends Node2D
 
-@export var PlayerScene: PackedScene
+@onready var PlayerSpawner_node = get_node("PlayerSpawner")
+@onready var MultiplayerController = get_node("/root/Control")
+var currentPlayer
+
+func _enter_tree():
+	get_node("PlayerSpawner").set_multiplayer_authority(1)
 
 func _ready():
-	var index = 0
-	var spawn_points = get_tree().get_nodes_in_group("PlayerSpawnPoint")
-	for player_id in GameManager.Players:
-		if player_id == 1:
-			continue
-		var currentPlayer = PlayerScene.instantiate()
-		currentPlayer.name = str(player_id)
-		%Players.add_child(currentPlayer)
+	if not is_multiplayer_authority():
+		spawn_my_player.rpc_id(1, MultiplayerController.nickname)
 		
-		if index < spawn_points.size():
-			var spawn = spawn_points[index]
-			currentPlayer.global_position = spawn.global_position
-			print("Assigning player ", player_id, " to spawn point ", index, " at position ", spawn.global_position)
-		
-		# Assign the camera only if this player is the local player
-		if player_id == multiplayer.get_unique_id():
-			var player_camera = currentPlayer.get_node("Camera2D")
-			player_camera.make_current()
-		
-		index += 1
 	pass
 
 func _process(_delta):
 	pass
+	
+	
+@rpc("any_peer", "reliable")
+func spawn_my_player(nickname: String) -> void:
+	if multiplayer.is_server():
+		var peer = multiplayer.get_remote_sender_id()
+		var data := {"peer_id": peer, "nickname": nickname}
+		currentPlayer = PlayerSpawner_node.spawn(data)
+		return
