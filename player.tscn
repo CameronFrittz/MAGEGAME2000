@@ -575,12 +575,10 @@ bus = &"Player"
 
 [node name="FireballSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://fireball.tscn")
-spawn_path = NodePath("..")
 script = ExtResource("6_8tcqq")
 
 [node name="FreezeReticleSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
-spawn_path = NodePath("..")
 script = ExtResource("7_p1r25")
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

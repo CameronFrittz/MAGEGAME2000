@@ -9,7 +9,7 @@ func _ready():
 	add_child(timer)
 	timer.wait_time = 5  # Fireball will last 5 seconds
 	timer.one_shot = true
-	timer.timeout.connect(queue_free)  # Make sure to connect to the correct method
+	timer.timeout.connect(Callable(self, "_on_timer_timeout"))
 	timer.start()
 
 func _physics_process(delta):
@@ -19,7 +19,7 @@ func _process(delta):
 	velocity = Vector2(speed, 0).rotated(rotation)
 	position += velocity * delta
 
-func on_timer_timeout():
+func _on_timer_timeout():
 	queue_free()  # This method will be called when the timer runs out
 
 func _on_area_entered(area):

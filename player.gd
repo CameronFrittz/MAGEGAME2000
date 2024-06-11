@@ -496,10 +496,8 @@ func stop_flash():
 # Function to show the freeze reticle without triggering freeze
 func show_freeze_reticle():
 	if has_authority() and freeze_reticle == null and freeze_cooldown_timer <= 0:
-		freeze_reticle = fret_spawner.spawn()
-		#Getting a breakpoint here because it returns a null ptr
-		freeze_reticle.get_node("Sprite2D").texture = stun_reticle_texture
-		freeze_reticle.get_node("Sprite2D").modulate.a = 0.5  # Set alpha to 0.5 while aiming
+		var data := {"peer_id": multiplayer.get_unique_id()}
+		freeze_reticle = fret_spawner.spawn(data)
 		freeze_reticle.global_position = global_position
 		freeze_reticle.z_index = 5
 		var scale_factor = (4.25 * FREEZE_RADIUS) / freeze_reticle.get_node("Sprite2D").texture.get_size().x
