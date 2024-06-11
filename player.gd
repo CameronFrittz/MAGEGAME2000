@@ -74,10 +74,10 @@ var target_zoom: Vector2 = ZOOM_LEVELS[current_zoom_index]
 const JOYSTICK_SENSITIVITY: float = 325.0  # Adjust as needed
 
 # Process input for various actions
-func _input(event):
+func _input(event): 
 	if event.is_action_pressed("fire"):
 		if not reticle_instance:
-			reticle_instance = fret_spawner.spawn()
+			reticle_instance = reticle_scene.instantiate()
 		if not reticle_instance.is_inside_tree():
 			add_child(reticle_instance)
 			reticle_instance.z_index = 0  # Set the z_index here
@@ -208,7 +208,10 @@ func update_reticle_position_with_joystick(delta: float):
 			print("Reticle Position: ", reticle_instance.position)  # Debug print
 
 # Initial setup of the scene
-func _ready():
+func _ready(): 
+	if has_authority():
+		var player_camera = get_node("Camera2D")
+		player_camera.make_current()
 	if hud:
 		update_hud()
 	else:
@@ -227,7 +230,7 @@ func _ready():
 
 # Manage physical movements and attacks
 func _physics_process(delta: float) -> void:
-	if has_authority():
+	if has_authority(): 
 		if is_knocked_back:
 			knockback_timer -= delta
 			if knockback_timer <= 0:

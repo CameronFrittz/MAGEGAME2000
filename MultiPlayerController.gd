@@ -12,9 +12,10 @@ func _ready():
 		#print("Starting dedicated server on %s" % [port])
 		#_on_host_button_down()
 		#await get_tree().create_timer(1).timeout
-		#_on_start_game_button_down()
+		##_on_start_game_button_down()
 	#else:
-		#_on_join_button_down()
+		##_on_join_button_down()
+		#pass
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
