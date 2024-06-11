@@ -209,6 +209,7 @@ func update_reticle_position_with_joystick(delta: float):
 
 # Initial setup of the scene
 func _ready(): 
+	add_to_group("players")
 	if has_authority():
 		var player_camera = get_node("Camera2D")
 		player_camera.make_current()
@@ -437,16 +438,16 @@ func _on_attack_area_area_entered(area):
 		print("apply_damage method not found in the parent hierarchy")
 
 
-# Sends a request to the server to apply damage
-func apply_damage(damage_amount: int):
-	if multiplayer.is_server():
-		_apply_damage(damage_amount)
-	else:
-		rpc_id(1, "_request_damage", damage_amount)
+## Sends a request to the server to apply damage
+#func apply_damage(damage_amount: int):
+	#if multiplayer.is_server():
+		#_apply_damage(damage_amount)
+	#else:
+		#rpc_id(1, "_request_damage", damage_amount)
 
 # Applies damage to the player
 
-func _apply_damage(damage_amount: int):
+func apply_damage(damage_amount: int):
 	health -= damage_amount
 	if health <= 0:
 		die()
@@ -454,9 +455,9 @@ func _apply_damage(damage_amount: int):
 	start_flash()
 
 #@rpc("any_peer", "call_local")
-func _request_damage(damage_amount: int):
-	if multiplayer.is_server():
-		rpc_id(multiplayer.get_unique_id(), "_apply_damage", damage_amount)
+#func _request_damage(damage_amount: int):
+	#if multiplayer.is_server():
+		#rpc_id(multiplayer.get_unique_id(), "_apply_damage", damage_amount)
 
 
 # Asynchronous function to handle controller vibration

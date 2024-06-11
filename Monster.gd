@@ -222,3 +222,9 @@ func apply_freeze_damage(damage_amount: int):
 
 func _apply_freeze_damage():
 	apply_freeze_damage(int(randf_range(2, 5)))  # Apply 2-5 damage every second
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("players"):
+		# Assuming the player scene has a function named apply_damage that takes an integer as an argument
+		area.apply_damage(5)
