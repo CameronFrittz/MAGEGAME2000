@@ -1,5 +1,5 @@
 extends MultiplayerSpawner
-var player_scene = preload("res://player.tscn")
+var player_scene = preload("res://player_hunter.tscn")
 var spawn_points = []  
 
 # Called when the node enters the scene tree for the first time.

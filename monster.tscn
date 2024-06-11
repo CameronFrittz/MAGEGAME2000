@@ -493,6 +493,7 @@ properties/5/replication_mode = 2
 [node name="Monster" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
+collision_layer = 2147483649
 collision_mask = 2147483651
 script = ExtResource("1_hqut6")
 
