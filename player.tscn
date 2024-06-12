@@ -495,7 +495,7 @@ properties/6/replication_mode = 1
 z_index = 6
 y_sort_enabled = true
 collision_layer = 2147483649
-collision_mask = 2147483649
+collision_mask = 2147483651
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

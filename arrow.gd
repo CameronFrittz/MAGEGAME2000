@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: float = 400
+@export var speed: float = 0.0
 @export var damage: int =  int(randf_range(70,100))
 var velocity
 

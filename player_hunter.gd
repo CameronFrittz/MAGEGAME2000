@@ -26,6 +26,13 @@ var freeze_cooldown_timer: float = 0.0
 var freeze_reticle: Area2D = null  # Variable to hold the freeze reticle instance
 const FREEZE_MANA_COST: int = 10  # Mana cost for using the freeze ability
 
+var charge_time: float = 0.0
+const MAX_CHARGE_TIME: float = 3.0  # Maximum time for charging the arrow
+
+
+
+
+
 # State management
 var is_knocked_back: bool = false
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -67,19 +74,21 @@ const ZOOM_LEVELS: Array = [Vector2(0.4, 0.4), Vector2(0.6, 0.6), Vector2(0.8, 0
 const ZOOM_SPEED: float = 3
 var current_zoom_index: int = 4  # Default to the middle zoom level
 var target_zoom: Vector2 = ZOOM_LEVELS[current_zoom_index]
-
+@onready var ChargeBar = %ProgressBar
 # Joystick sensitivity
 const JOYSTICK_SENSITIVITY: float = 325.0  # Adjust as needed
 
 # Process input for various actions
-func _input(event): 
-	if event.is_action_pressed("fire"):
+func _input(event):
+	if has_authority() and event.is_action_pressed("fire"):
 		if not reticle_instance:
 			reticle_instance = reticle_scene.instantiate()
 		if not reticle_instance.is_inside_tree():
 			add_child(reticle_instance)
 			reticle_instance.z_index = 0  # Set the z_index here
 		is_firing = true
+		charge_time = 0.0
+		ChargeBar.visible = true  # Reset charge time
 		# Determine if the mouse is on screen
 		if is_mouse_on_screen():
 			using_mouse = true
@@ -87,8 +96,9 @@ func _input(event):
 			using_mouse = false
 	elif event.is_action_released("fire"):
 		if reticle_instance and reticle_instance.is_inside_tree():
-			fire_arrow(reticle_instance.global_position)
+			fire_arrow(reticle_instance.global_position, charge_time)
 			remove_child(reticle_instance)
+			ChargeBar.visible = false
 		is_firing = false
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -113,6 +123,7 @@ func _input(event):
 	elif Input.is_action_just_released("freeze"):
 		trigger_freeze()  # Trigger the freeze effect on button release
 
+
 # Reset reticle position to player's position
 func reset_reticle_position():
 	if reticle_instance and reticle_instance.is_inside_tree():
@@ -129,16 +140,17 @@ func is_mouse_on_screen() -> bool:
 @onready var arrow_spawner = get_node("ArrowSpawner")
 
 
-func fire_arrow(target_position):
+func fire_arrow(target_position, charge_time):
 	if has_authority() and mana >= ARROW_MANA_COST:
-		var data := {"peer_id": multiplayer.get_unique_id(),"target_position": target_position, "spawn_position": global_position}
+		var data := {"peer_id": multiplayer.get_unique_id(),"target_position": target_position, "spawn_position": global_position, "charge_time": charge_time}
 		arrow_spawner.spawn(data)
 		mana -= ARROW_MANA_COST
 		update_mana_display()
-		%FireBallSFX.pitch_scale = randf_range(1.3, 1.6)
-		%FireBallSFX.playing = true
+		%ArrowSFX.pitch_scale = randf_range(1.0, 1.6)
+		%ArrowSFX.playing = true
 	else:
 		print("Not enough mana to cast fireball or no authority.")
+
 
 
 
@@ -154,7 +166,22 @@ func change_zoom_level(change: int):
 
 
 
+var base_color: Color = Color(1, 1, 1)  # White or any starting color
+var max_color: Color = Color(1, 0, 0)   # Red
+var min_charge_time: float = 0.0
+var max_charge_time: float = 3.0  # Example maximum charge time
+
+
 func _process(delta: float):
+	if has_authority():
+		ChargeBar.value = charge_time  # Make sure charge_time is defined elsewhere in your script
+		var t: float = clamp((charge_time - min_charge_time) / (max_charge_time - min_charge_time), 0.0, 3.0)
+		var interpolated_color: Color = base_color.lerp(max_color, t)
+
+		# Access the StyleBoxFlat of the ProgressBar's Fill style
+		var style_box_flat: StyleBoxFlat = ChargeBar.get_theme_stylebox("fill", "ProgressBar") as StyleBoxFlat
+		if style_box_flat:
+			style_box_flat.bg_color = interpolated_color
 	if playercamera:
 		playercamera.zoom = playercamera.zoom.lerp(target_zoom, ZOOM_SPEED * delta)
 	if mana < max_mana:
@@ -170,6 +197,7 @@ func _process(delta: float):
 
 	# Update reticle position based on input
 	if is_firing:
+		charge_time = min(charge_time + delta, MAX_CHARGE_TIME)
 		if using_mouse:
 			update_reticle_position_with_mouse()
 		else:
@@ -178,6 +206,7 @@ func _process(delta: float):
 	# Update freeze reticle position if aiming
 	if is_aiming_freeze and freeze_reticle:
 		freeze_reticle.global_position = global_position
+
 
 # Update reticle position based on mouse position
 func update_reticle_position_with_mouse():

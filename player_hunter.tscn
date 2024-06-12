@@ -1,12 +1,13 @@
-[gd_scene load_steps=35 format=3 uid="uid://dfnc0xr2dy5tq"]
+[gd_scene load_steps=38 format=3 uid="uid://dfnc0xr2dy5tq"]
 
 [ext_resource type="Script" path="res://player_hunter.gd" id="1_b4wei"]
 [ext_resource type="Texture2D" uid="uid://b42tajnsaic2i" path="res://SPRITES/hunter.png" id="2_143of"]
 [ext_resource type="AudioStream" uid="uid://06ei3vwc5lou" path="res://SFX/Whip_Whoosh_BW.11029.wav" id="3_4ywjr"]
-[ext_resource type="AudioStream" uid="uid://cgbqi6vsvkxjg" path="res://SFX/FireballPassByHeavy_SFXB._1.wav" id="4_h3jec"]
+[ext_resource type="AudioStream" uid="uid://5g7q00jv48b1" path="res://SFX/ArrowWoosh.wav" id="4_4nxae"]
 [ext_resource type="AudioStream" uid="uid://1deeyh63h0vv" path="res://SFX/Scurry.wav" id="5_p1ipq"]
 [ext_resource type="Script" path="res://arrow_spawner.gd" id="6_dka8t"]
 [ext_resource type="Script" path="res://freeze_reticle_spawner.gd" id="7_n8we4"]
+[ext_resource type="AudioStream" uid="uid://k3bvbkmexk4k" path="res://SFX/Footstep.wav" id="8_d3bpr"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -312,6 +313,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [116, 117, 118, 119, 120, 121, 122, 123]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FootStepsSFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
 
 [sub_resource type="Animation" id="Animation_bweqv"]
 resource_name = "Walk_N"
@@ -491,11 +504,17 @@ properties/6/path = NodePath(".:position")
 properties/6/spawn = true
 properties/6/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en1yw"]
+bg_color = Color(8.18223e-07, 0.498384, 0.28674, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynoeq"]
+bg_color = Color(1.29953e-06, 0.727557, 0.104411, 1)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
 collision_layer = 2147483649
-collision_mask = 2147483649
+collision_mask = 2147483651
 script = ExtResource("1_b4wei")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -560,9 +579,9 @@ volume_db = -0.105
 pitch_scale = 1.3
 bus = &"Player"
 
-[node name="FireBallSFX" type="AudioStreamPlayer2D" parent="SFX"]
+[node name="ArrowSFX" type="AudioStreamPlayer2D" parent="SFX"]
 unique_name_in_owner = true
-stream = ExtResource("4_h3jec")
+stream = ExtResource("4_4nxae")
 volume_db = 0.886
 pitch_scale = 1.3
 bus = &"Player"
@@ -574,11 +593,39 @@ volume_db = -6.325
 bus = &"Player"
 
 [node name="ArrowSpawner" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://arrow.tscn")
 script = ExtResource("6_dka8t")
 
 [node name="FreezeReticleSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
 script = ExtResource("7_n8we4")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -39.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 53.0
+offset_top = 20.0
+offset_right = 57.0
+offset_bottom = 47.0
+theme_override_styles/background = SubResource("StyleBoxFlat_en1yw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ynoeq")
+max_value = 3.0
+value = 3.0
+fill_mode = 3
+show_percentage = false
+
+[node name="FootStepsSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_d3bpr")
+bus = &"SFX"
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
