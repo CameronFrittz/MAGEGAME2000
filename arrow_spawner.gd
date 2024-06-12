@@ -26,7 +26,7 @@ func spawn_arrow(data: Variant) -> Node:
 	currentArrow.global_position = data.spawn_position
 	var direction = (data.target_position - data.spawn_position).normalized()
 	currentArrow.rotation = direction.angle()
-	currentArrow.set_multiplayer_authority(data.peer_id)
+	currentArrow.set_multiplayer_authority(data.peer_id, true)
 	
 	# Calculate arrow speed based on charge time
 	var charge_ratio = clamp(data.charge_time / MAX_CHARGE_TIME, 0.0, 1.0)

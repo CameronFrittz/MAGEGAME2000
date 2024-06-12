@@ -14,5 +14,5 @@ func spawn_fireball(data: Variant) -> Node:
 	currentFireball.global_position = data.spawn_position
 	var direction = (data.target_position - data.spawn_position).normalized()
 	currentFireball.rotation = direction.angle()
-	currentFireball.set_multiplayer_authority(data.peer_id)
+	currentFireball.set_multiplayer_authority(data.peer_id, true)
 	return currentFireball

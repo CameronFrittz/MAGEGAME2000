@@ -12,7 +12,7 @@ func _process(_delta: float) -> void:
 	
 func spawn_fret(data: Variant) -> Node:
 	var currentFret = fret_scene.instantiate()
-	currentFret.set_multiplayer_authority(data.peer_id)
+	currentFret.set_multiplayer_authority(data.peer_id, true)
 	currentFret.get_node("Sprite2D").texture = stun_reticle_texture
 	currentFret.get_node("Sprite2D").modulate.a = 0.5  # Set alpha to 0.5 while aiming
 	return currentFret

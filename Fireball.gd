@@ -20,7 +20,8 @@ func _process(delta):
 	position += velocity * delta
 
 func _on_timer_timeout():
-	queue_free()  # This method will be called when the timer runs out
+	if get_multiplayer_authority() == multiplayer.get_unique_id():
+		queue_free()  # This method will be called when the timer runs out
 
 func _on_area_entered(area):
 	if area.is_in_group("enemies"):

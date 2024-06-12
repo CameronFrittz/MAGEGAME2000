@@ -9,7 +9,7 @@ func _enter_tree():
 
 func _ready():
 	if not is_multiplayer_authority():
-		spawn_my_player.rpc_id(1, MultiplayerController.nickname)
+		spawn_my_player.rpc_id(1, MultiplayerController.nickname,MultiplayerController.player_scene_selection)
 		
 	pass
 
@@ -18,9 +18,9 @@ func _process(_delta):
 	
 	
 @rpc("any_peer", "reliable")
-func spawn_my_player(nickname: String) -> void:
+func spawn_my_player(nickname: String,scene_path: String) -> void:
 	if multiplayer.is_server():
 		var peer = multiplayer.get_remote_sender_id()
-		var data := {"peer_id": peer, "nickname": nickname, "scene_path": MultiplayerController.player_scene_selection}
+		var data := {"peer_id": peer, "nickname": nickname, "scene_path": scene_path}
 		currentPlayer = PlayerSpawner_node.spawn(data)
 		return
