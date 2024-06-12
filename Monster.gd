@@ -27,7 +27,7 @@ var health_checked = false
 var flash_timer: Timer
 var is_hit_recently = false
 var hit_timer: float = 0.0
-var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
+var hit_cooldown: float = 0.1  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready  var health_bar = $ProgressBar 
 var last_movement_direction: Vector2 = Vector2.ZERO

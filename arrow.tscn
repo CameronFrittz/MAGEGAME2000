@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqimps8osx50c"]
+[gd_scene load_steps=4 format=3 uid="uid://cqimps8osx50c"]
 
 [ext_resource type="Script" path="res://arrow.gd" id="1_3qarl"]
 [ext_resource type="Texture2D" uid="uid://exmiki7vke66" path="res://SPRITES/Arrow.png" id="2_acamx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dvp2m"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="arrow" type="Area2D"]
 z_index = 5
@@ -18,5 +23,8 @@ texture = ExtResource("2_acamx")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2(0.2128, 0.2128)
 polygon = PackedVector2Array(-355.04, -39.6222, -216.291, -40.566, -183.255, -9.41815, -167.209, -16.0253, -144.556, -13.1937, -137.949, -8.4743, -52.0568, -8.4743, -86.9801, -43.3976, 71.5908, -48.117, 98.0193, -36.7905, 116.897, -12.2498, 132.943, -10.3621, 140.494, -16.0253, 158.427, -16.0253, 173.529, -14.1375, 172.585, -26.4079, 160.315, -39.6222, 159.371, -52.8364, 191.757, -84.0318, 456.202, 0.424493, 177.912, 97.3415, 155.596, 43.4388, 170.698, 30.2245, 169.754, 18.8981, 157.483, 21.7297, 137.662, 21.7297, 135.774, 14.1787, 115.009, 16.0664, 95.1876, 44.3827, 68.7592, 49.1021, -83.2046, 44.3827, -50.1691, 12.291, -138.893, 12.291, -153.995, 17.0103, -168.153, 18.8981, -183.255, 13.2348, -213.459, 42.4949, -357.872, 46.2704, -331.444, 15.1226, -338.995, 9.45929, -347.489, 3.79608, -349.377, -8.4743, -340.882, -7.5304, -333.331, -14.1375)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dvp2m")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
