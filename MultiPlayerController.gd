@@ -5,17 +5,18 @@ extends Control
 @export var port = 8910
 @onready var nickname_LE = get_node("LineEdit")
 @onready var nickname = nickname_LE.text
+@export var player_scene_selection : PackedScene
 var peer
 
 func _ready():
 	if OS.has_feature("dedicated_server"):
 		print("Starting dedicated server on %s" % [port])
 		_on_host_button_down()
-		await get_tree().create_timer(1).timeout
-		_on_start_game_button_down()
-	else:
-		_on_join_button_down()
-		pass
+		#await get_tree().create_timer(1).timeout
+		#_on_start_game_button_down()
+	#else:
+		#_on_join_button_down()
+		#pass
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -75,3 +76,16 @@ func StartGame():
 	#if multiplayer.is_server():
 		#for i in GameManager.Players:
 			#SendPlayerInformation.rpc(GameManager.Players[i].name, i)
+
+
+func _on_item_list_item_selected(index: int) -> void:
+	if index == 0:
+		player_scene_selection = preload("res://player.tscn")
+	if index == 1:
+		player_scene_selection = preload("res://player_hunter.tscn")
+	#if index == 2:
+		#playerspawner.player_scene = preload("res://player_paladin.tscn")
+	#if index == 3:
+		#playerspawner.player_scene = preload("res://player_assassin.tscn")
+	print("Player scene selected: ", player_scene_selection)
+	return 
