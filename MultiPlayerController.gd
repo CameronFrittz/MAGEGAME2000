@@ -5,7 +5,7 @@ extends Control
 @export var port = 8910
 @onready var nickname_LE = get_node("LineEdit")
 @onready var nickname = nickname_LE.text
-@export var player_scene_selection : PackedScene
+@export var player_scene_selection : String
 var peer
 
 func _ready():
@@ -80,9 +80,9 @@ func StartGame():
 
 func _on_item_list_item_selected(index: int) -> void:
 	if index == 0:
-		player_scene_selection = preload("res://player.tscn")
+		player_scene_selection = str("res://player.tscn")
 	if index == 1:
-		player_scene_selection = preload("res://player_hunter.tscn")
+		player_scene_selection = str("res://player_hunter.tscn")
 	#if index == 2:
 		#playerspawner.player_scene = preload("res://player_paladin.tscn")
 	#if index == 3:

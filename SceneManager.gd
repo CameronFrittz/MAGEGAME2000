@@ -21,6 +21,6 @@ func _process(_delta):
 func spawn_my_player(nickname: String) -> void:
 	if multiplayer.is_server():
 		var peer = multiplayer.get_remote_sender_id()
-		var data := {"peer_id": peer, "nickname": nickname}
+		var data := {"peer_id": peer, "nickname": nickname, "scene_path": MultiplayerController.player_scene_selection}
 		currentPlayer = PlayerSpawner_node.spawn(data)
 		return

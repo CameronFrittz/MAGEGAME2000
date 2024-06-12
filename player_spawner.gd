@@ -1,16 +1,15 @@
 extends MultiplayerSpawner
-@onready var MPController = get_node("/root/Control/")
-@onready var player_scene = MPController.player_scene_selection
+
 var spawn_points = []  
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_spawn_points()
 	spawn_function = Callable(self, "spawn_player")
-	print("Player scene at spawner ready: ", player_scene)
 	
 
 func spawn_player(data: Variant) -> Node:
+	var player_scene = load(data.scene_path)
 	var currentPlayer = player_scene.instantiate()
 	print(currentPlayer)
 	var spawn_index = randi() % spawn_points.size()
