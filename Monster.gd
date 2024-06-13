@@ -24,8 +24,9 @@ var retreat_target: Vector2
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")
 var flash_timer: Timer
-var is_hit_recently = false
-var hit_timer: float = 0.0
+@export var is_hit_recently = false
+@export var hit_timer: float = 0.0
+var health_checked = false
 var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready  var health_bar = $ProgressBar 
@@ -57,7 +58,7 @@ func update_last_movement_direction(_velocity: Vector2) -> void:
 			sprite.flip_h = false
 	else:
 		last_movement_direction = Vector2.ZERO
-var health_checked = false
+
 func _physics_process(delta: float):
 	if health_checked == false and health != 100:
 		$ProgressBar.visible = true

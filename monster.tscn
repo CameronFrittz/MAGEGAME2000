@@ -489,6 +489,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath("ProgressBar:indeterminate")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:is_hit_recently")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Monster" type="CharacterBody2D" groups=["enemies"]]
 z_index = 6

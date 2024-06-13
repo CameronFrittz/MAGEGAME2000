@@ -29,7 +29,7 @@ const FREEZE_MANA_COST: int = 10  # Mana cost for using the freeze ability
 var charge_time: float = 0.0
 const MAX_CHARGE_TIME: float = 3.0  # Maximum time for charging the arrow
 
-
+@onready var MultiplayerController = get_node("/root/Control")
 
 
 
@@ -173,6 +173,7 @@ var max_charge_time: float = 3.0  # Example maximum charge time
 
 
 func _process(delta: float):
+	%Lifebar.value = health
 	if has_authority():
 		ChargeBar.value = charge_time  # Make sure charge_time is defined elsewhere in your script
 		var t: float = clamp((charge_time - min_charge_time) / (max_charge_time - min_charge_time), 0.0, 3.0)
@@ -235,7 +236,10 @@ func update_reticle_position_with_joystick(delta: float):
 			print("Reticle Position: ", reticle_instance.position)  # Debug print
 
 # Initial setup of the scene
-func _ready(): 
+func _ready():
+	if not is_multiplayer_authority():
+		%PlayerTag.visible = true
+		%Nickname.text = MultiplayerController.nickname
 	add_to_group("players")
 	if has_authority():
 		var player_camera = get_node("Camera2D")

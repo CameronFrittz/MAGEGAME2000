@@ -63,7 +63,7 @@ var anim_mode: String = "Idle"
 @onready var hud = get_node("/root/MAGEGAME/hud/")
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")  # Reference to the GameManager
-
+@onready var MultiplayerController = get_node("/root/Control")
 # Zoom properties for camera control
 const ZOOM_LEVELS: Array = [Vector2(0.4, 0.4), Vector2(0.6, 0.6), Vector2(0.8, 0.8), Vector2(1.0, 1.0), Vector2(1.2, 1.2), Vector2(1.4, 1.4), Vector2(1.6, 1.6), Vector2(1.8, 1.8), Vector2(2.0, 2.0), Vector2(2.2, 2.2)]
 const ZOOM_SPEED: float = 3
@@ -157,6 +157,7 @@ func change_zoom_level(change: int):
 
 
 func _process(delta: float):
+	%Lifebar.value = health
 	if playercamera:
 		playercamera.zoom = playercamera.zoom.lerp(target_zoom, ZOOM_SPEED * delta)
 	if mana < max_mana:
@@ -209,6 +210,9 @@ func update_reticle_position_with_joystick(delta: float):
 
 # Initial setup of the scene
 func _ready(): 
+	if not is_multiplayer_authority():
+		%PlayerTag.visible = true
+		%Nickname.text = MultiplayerController.nickname
 	add_to_group("players")
 	if has_authority():
 		var player_camera = get_node("Camera2D")

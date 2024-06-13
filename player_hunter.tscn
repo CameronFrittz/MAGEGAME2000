@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dfnc0xr2dy5tq"]
+[gd_scene load_steps=40 format=3 uid="uid://dfnc0xr2dy5tq"]
 
 [ext_resource type="Script" path="res://player_hunter.gd" id="1_b4wei"]
 [ext_resource type="Texture2D" uid="uid://b42tajnsaic2i" path="res://SPRITES/hunter.png" id="2_143of"]
@@ -606,6 +606,12 @@ bg_color = Color(8.18223e-07, 0.498384, 0.28674, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynoeq"]
 bg_color = Color(1.29953e-06, 0.727557, 0.104411, 1)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_ribq6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cden2"]
+texture = SubResource("CanvasTexture_ribq6")
+modulate_color = Color(0.352941, 1, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
@@ -643,7 +649,7 @@ z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
 collision_layer = 4
-collision_mask = 12
+collision_mask = 8
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
@@ -736,6 +742,49 @@ position = Vector2(-9.53674e-07, 18)
 rotation = 0.0508076
 scale = Vector2(0.813056, 0.353188)
 polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -15.7932, 7.68726, -26.2768, 8.18804, -65.9868, 1.75863, -76.3366, -2.73725, -61.5358, -4.34456, -40.7289)
+
+[node name="PlayerTag" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -19.0
+grow_horizontal = 2
+
+[node name="Lifebar" type="ProgressBar" parent="PlayerTag"]
+unique_name_in_owner = true
+y_sort_enabled = true
+clip_contents = true
+custom_minimum_size = Vector2(100, 5)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.032
+anchor_bottom = 0.7
+offset_left = -2.0
+offset_top = 9.0
+offset_right = 56.592
+offset_bottom = 11.8
+scale = Vector2(0.452946, 0.159096)
+theme_override_styles/fill = SubResource("StyleBoxTexture_cden2")
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="Nickname" type="Label" parent="PlayerTag"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 53.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]

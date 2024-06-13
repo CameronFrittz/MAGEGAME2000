@@ -11,7 +11,6 @@ func _ready() -> void:
 func spawn_player(data: Variant) -> Node:
 	var player_scene = load(data.scene_path)
 	var currentPlayer = player_scene.instantiate()
-	print(currentPlayer)
 	var spawn_index = randi() % spawn_points.size()
 	var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 	var spawn_position = spawn_points[spawn_index] + offset

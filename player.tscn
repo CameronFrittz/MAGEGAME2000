@@ -536,7 +536,7 @@ z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
 collision_layer = 4
-collision_mask = 12
+collision_mask = 8
 monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
@@ -605,30 +605,20 @@ scale = Vector2(0.813056, 0.353188)
 polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -15.7932, 7.68726, -26.2768, 8.18804, -65.9868, 1.75863, -76.3366, -2.73725, -61.5358, -4.34456, -40.7289)
 
 [node name="PlayerTag" type="Control" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_left = -19.0
-offset_top = -37.0
-offset_right = 25.0
-offset_bottom = -21.0
-
-[node name="Nickname" type="RichTextLabel" parent="PlayerTag"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.227
-anchor_right = 1.227
-anchor_bottom = 1.0
-offset_left = 3.988
-offset_top = -8.0
-offset_right = 0.0119934
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -19.0
 grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 12
-text = "Nickname"
-scroll_active = false
-shortcut_keys_enabled = false
 
 [node name="Lifebar" type="ProgressBar" parent="PlayerTag"]
+unique_name_in_owner = true
 y_sort_enabled = true
 clip_contents = true
 custom_minimum_size = Vector2(100, 5)
@@ -636,14 +626,26 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.032
 anchor_bottom = 0.7
+offset_left = -2.0
 offset_top = 9.0
-offset_right = 58.592
+offset_right = 56.592
 offset_bottom = 11.8
 scale = Vector2(0.452946, 0.159096)
 theme_override_styles/fill = SubResource("StyleBoxTexture_cden2")
 value = 100.0
 rounded = true
 show_percentage = false
+
+[node name="Nickname" type="Label" parent="PlayerTag"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 53.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]

@@ -10,7 +10,6 @@ func _enter_tree():
 func _ready():
 	if not is_multiplayer_authority():
 		spawn_my_player.rpc_id(1, MultiplayerController.nickname,MultiplayerController.player_scene_selection)
-		
 	pass
 
 func _process(_delta):

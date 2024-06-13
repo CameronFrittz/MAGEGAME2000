@@ -7,7 +7,7 @@ var velocity
 func _ready():
 	var timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 25  # Fireball will last 5 seconds
+	timer.wait_time = 25  
 	timer.one_shot = true
 	timer.timeout.connect(Callable(self, "_on_timer_timeout"))
 	timer.start()
@@ -32,7 +32,7 @@ func _on_area_entered(area):
 	
 	if enemy:
 		enemy.apply_arrowdamage(damage)
-		if get_multiplayer_authority() == multiplayer.get_unique_id():
-			queue_free()
+		#if get_multiplayer_authority() == multiplayer.get_unique_id():
+			#queue_free()
 	else:
 		print("apply_arrowdamage method not found in the parent hierarchy")
