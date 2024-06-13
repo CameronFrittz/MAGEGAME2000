@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bhsnp72cip8du"]
+[gd_scene load_steps=37 format=3 uid="uid://bhsnp72cip8du"]
 
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
 [ext_resource type="Script" path="res://player.gd" id="1_3grgq"]
@@ -491,6 +491,12 @@ properties/6/path = NodePath(".:position")
 properties/6/spawn = true
 properties/6/replication_mode = 1
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_ribq6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cden2"]
+texture = SubResource("CanvasTexture_ribq6")
+modulate_color = Color(0.352941, 1, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
@@ -499,6 +505,7 @@ collision_mask = 2147483648
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(-0.68, 0.32)
 scale = Vector2(0.847194, 2.83933)
@@ -524,6 +531,7 @@ libraries = {
 }
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
@@ -543,6 +551,7 @@ polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -1
 replication_config = SubResource("SceneReplicationConfig_v3cba")
 
 [node name="BuildingFade" type="Area2D" parent="."]
+visible = false
 collision_layer = 2147483648
 collision_mask = 2147483648
 
@@ -583,7 +592,8 @@ _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
 script = ExtResource("7_p1r25")
 
 [node name="HurtArea" type="Area2D" parent="."]
-collision_layer = 32
+visible = false
+collision_layer = 0
 collision_mask = 40
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtArea"]
@@ -593,6 +603,47 @@ position = Vector2(-9.53674e-07, 18)
 rotation = 0.0508076
 scale = Vector2(0.813056, 0.353188)
 polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -15.7932, 7.68726, -26.2768, 8.18804, -65.9868, 1.75863, -76.3366, -2.73725, -61.5358, -4.34456, -40.7289)
+
+[node name="PlayerTag" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -19.0
+offset_top = -37.0
+offset_right = 25.0
+offset_bottom = -21.0
+
+[node name="Nickname" type="RichTextLabel" parent="PlayerTag"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.227
+anchor_right = 1.227
+anchor_bottom = 1.0
+offset_left = 3.988
+offset_top = -8.0
+offset_right = 0.0119934
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "Nickname"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="Lifebar" type="ProgressBar" parent="PlayerTag"]
+y_sort_enabled = true
+clip_contents = true
+custom_minimum_size = Vector2(100, 5)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.032
+anchor_bottom = 0.7
+offset_top = 9.0
+offset_right = 58.592
+offset_bottom = 11.8
+scale = Vector2(0.452946, 0.159096)
+theme_override_styles/fill = SubResource("StyleBoxTexture_cden2")
+value = 100.0
+rounded = true
+show_percentage = false
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
