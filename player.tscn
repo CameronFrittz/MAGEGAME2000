@@ -494,8 +494,8 @@ properties/6/replication_mode = 1
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
-collision_layer = 2147483649
-collision_mask = 2147483651
+collision_layer = 2147483648
+collision_mask = 2147483648
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -527,8 +527,9 @@ libraries = {
 z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
-collision_mask = 2
-monitorable = false
+collision_layer = 4
+collision_mask = 12
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
 z_index = 4
@@ -581,4 +582,17 @@ script = ExtResource("6_8tcqq")
 _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
 script = ExtResource("7_p1r25")
 
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 40
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtArea"]
+z_index = 4
+y_sort_enabled = true
+position = Vector2(-9.53674e-07, 18)
+rotation = 0.0508076
+scale = Vector2(0.813056, 0.353188)
+polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -15.7932, 7.68726, -26.2768, 8.18804, -65.9868, 1.75863, -76.3366, -2.73725, -61.5358, -4.34456, -40.7289)
+
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]

@@ -27,12 +27,12 @@ func _on_area_entered(area):
 	if area.is_in_group("enemies"):
 		print("Enemy hit detected.")
 	var enemy = area
-	while enemy and not enemy.has_method("apply_damage"):
+	while enemy and not enemy.has_method("apply_arrowdamage"):
 		enemy = enemy.get_parent()
 	
 	if enemy:
+		enemy.apply_arrowdamage(damage)
 		if get_multiplayer_authority() == multiplayer.get_unique_id():
-			enemy.apply_damage(damage)
 			queue_free()
 	else:
-		print("apply_damage method not found in the parent hierarchy")
+		print("apply_arrowdamage method not found in the parent hierarchy")

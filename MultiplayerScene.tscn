@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4x0ejpk32un7"]
+[gd_scene load_steps=5 format=3 uid="uid://b4x0ejpk32un7"]
 
 [ext_resource type="Script" path="res://MultiPlayerController.gd" id="1_7wwjo"]
 [ext_resource type="Texture2D" uid="uid://cbah2xm2ekm56" path="res://SPRITES/MageGameLogo.png" id="2_67sq1"]
-[ext_resource type="Texture2D" uid="uid://dujpxlv25ahbk" path="res://SPRITES/Monster.png" id="3_i7r74"]
+[ext_resource type="Texture2D" uid="uid://b01eyuenm420" path="res://SPRITES/MageIcon.png" id="3_br7i5"]
+[ext_resource type="Texture2D" uid="uid://cln1uohovhxem" path="res://SPRITES/HunterIcon.png" id="4_l5vfu"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -23,9 +24,9 @@ color = Color(0.0798585, 0.123611, 0.133157, 1)
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 0
-offset_left = 464.0
+offset_left = 448.0
 offset_top = 408.0
-offset_right = 508.0
+offset_right = 492.0
 offset_bottom = 439.0
 text = "Host"
 
@@ -63,30 +64,42 @@ offset_right = 789.0
 offset_bottom = 413.0
 texture = ExtResource("2_67sq1")
 
-[node name="HeroSelect" type="ItemList" parent="."]
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_left = 424.0
+offset_top = 491.0
+offset_right = 727.0
+offset_bottom = 599.0
+
+[node name="HeroSelect" type="ItemList" parent="Control"]
 layout_mode = 0
-offset_left = 408.0
-offset_top = 504.0
-offset_right = 744.0
-offset_bottom = 632.0
+offset_left = -2.0
+offset_top = 3.0
+offset_right = 315.0
+offset_bottom = 114.0
+theme_override_constants/icon_margin = 0
+theme_override_constants/h_separation = -5
+theme_override_font_sizes/font_size = 12
 allow_reselect = true
 auto_height = true
 item_count = 4
 max_columns = 4
 same_column_width = true
 icon_mode = 0
+icon_scale = 1.25
 item_0/text = "Mage"
-item_0/icon = ExtResource("3_i7r74")
+item_0/icon = ExtResource("3_br7i5")
 item_1/text = "Hunter"
-item_1/icon = ExtResource("3_i7r74")
+item_1/icon = ExtResource("4_l5vfu")
 item_2/text = "Paladin"
-item_2/icon = ExtResource("3_i7r74")
+item_2/icon = ExtResource("3_br7i5")
 item_2/disabled = true
 item_3/text = "Assassin"
-item_3/icon = ExtResource("3_i7r74")
+item_3/icon = ExtResource("4_l5vfu")
 item_3/disabled = true
 
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
-[connection signal="item_selected" from="HeroSelect" to="." method="_on_item_list_item_selected"]
+[connection signal="item_selected" from="Control/HeroSelect" to="." method="_on_item_list_item_selected"]

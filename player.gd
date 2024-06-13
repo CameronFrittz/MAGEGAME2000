@@ -11,7 +11,7 @@ const FIREBALL_MANA_COST = 8
 const MANA_REGEN_RATE: float = 3.0  # Mana regeneration rate per second
 const DAMAGE_COOLDOWN = 1  # 3 seconds cooldown
 var damage_cooldown_timer: float = 0.0
-@export var enemyattackdamage = randf_range(40, 80)
+@export var enemyattackdamage = randf_range(30, 45)
 @onready var playercamera = $Camera2D as Camera2D
 # Preloaded scenes and instances
 var fireball_scene = preload("res://fireball.tscn")    
@@ -448,11 +448,12 @@ func _on_attack_area_area_entered(area):
 # Applies damage to the player
 
 func apply_damage(damage_amount: int):
-	health -= damage_amount
-	if health <= 0:
-		die()
-	update_hud()
-	start_flash()
+	if has_authority():
+		health -= damage_amount
+		if health <= 0:
+			die()
+		update_hud()
+		start_flash()
 
 #@rpc("any_peer", "call_local")
 #func _request_damage(damage_amount: int):
@@ -547,3 +548,13 @@ func die():
 			animation_player.play("Death")
 			await get_tree().create_timer(animation_player.get_current_animation_length()).timeout
 		queue_free()
+
+
+func _on_hurt_area_area_entered(area: Area2D) -> void:
+	if damage_cooldown_timer <= 0:
+		apply_damage(randf_range(2,5))
+		start_flash()
+		apply_knockback(area.global_position, 500)
+		damage_cooldown_timer = DAMAGE_COOLDOWN
+	else:
+		print("Damage action is on cooldown.")

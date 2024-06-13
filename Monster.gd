@@ -20,14 +20,13 @@ var bloodpool = preload("res://bloodpool.tscn")
 enum State { APPROACH, RETREAT, COLLIDED }
 var current_state = State.APPROACH
 var retreat_target: Vector2
-var health_checked = false
 # Node references
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")
 var flash_timer: Timer
 var is_hit_recently = false
 var hit_timer: float = 0.0
-var hit_cooldown: float = 0.1  # Cooldown in seconds between hits
+var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready  var health_bar = $ProgressBar 
 var last_movement_direction: Vector2 = Vector2.ZERO
@@ -58,9 +57,9 @@ func update_last_movement_direction(_velocity: Vector2) -> void:
 			sprite.flip_h = false
 	else:
 		last_movement_direction = Vector2.ZERO
-
+var health_checked = false
 func _physics_process(delta: float):
-	if not health_checked and health != 100:
+	if health_checked == false and health != 100:
 		$ProgressBar.visible = true
 		health_checked = true
 	if is_hit_recently:
@@ -142,12 +141,28 @@ func apply_damage(damage_amount: int):
 			die()
 		else:
 			start_flash()
+		%GruntSFX.pitch_scale = randf_range(1,1.5)
+		%GruntSFX.playing = true
+	else:
+		var droppedbp = bloodpool.instantiate()
+		droppedbp.position = global_position
+		monsters_parent.add_child(droppedbp)
+		%GruntSFX.pitch_scale = randf_range(1,1.5)
+		%GruntSFX.playing = true
 		
 		
-		
-		
-		
-		
+func apply_arrowdamage(damage_amount: int):
+	if multiplayer.is_server():
+		health -= damage_amount
+		is_hit_recently = true
+		hit_timer = hit_cooldown  # Reset hit cooldown timer
+		if health_bar:
+			health_bar.value = health  # Ensure the health bar is updated
+		print("Applied damage: ", damage_amount, " New health: ", health)
+		if health <= 0:
+			die()
+		else:
+			start_flash()
 		%GruntSFX.pitch_scale = randf_range(1,1.5)
 		%GruntSFX.playing = true
 	else:
@@ -190,46 +205,38 @@ func _on_death_timeout():
 		queue_free()  # This method will be called when the timer runs out
 #
 func freeze(duration):
-	is_frozen = true
-	if is_frozen == true:
-		set_physics_process(false)  # Stop the monster's movement and actions
-		modulate = Color(0.5, 0.5, 1.0)  # Change color to indicate freezing
+	if is_multiplayer_authority():
+		is_frozen = true
+		if is_frozen == true:
+			set_physics_process(false)  # Stop the monster's movement and actions
+			modulate = Color(0.5, 0.5, 1.0)  # Change color to indicate freezing
 
-		# Set up and start the damage timer
-		var damage_timer = Timer.new()
-		add_child(damage_timer)
-		damage_timer.wait_time = 1.0  # 1 second interval for damage application
-		damage_timer.one_shot = false
-		damage_timer.timeout.connect(_apply_freeze_damage)
-		damage_timer.start()
+			# Set up and start the damage timer
+			var damage_timer = Timer.new()
+			add_child(damage_timer)
+			damage_timer.wait_time = 1.0  # 1 second interval for damage application
+			damage_timer.one_shot = false
+			damage_timer.timeout.connect(_apply_freeze_damage)
+			damage_timer.start()
 
-		# Use an asynchronous coroutine to manage the freeze duration
-		await get_tree().create_timer(duration).timeout
-		damage_timer.queue_free()
-		set_physics_process(true)
-		modulate = Color(1, 1, 1)  # Restore original color
+			# Use an asynchronous coroutine to manage the freeze duration
+			await get_tree().create_timer(duration).timeout
+			damage_timer.queue_free()
+			set_physics_process(true)
+			modulate = Color(1, 1, 1)  # Restore original color
 
 func apply_freeze_damage(damage_amount: int):
-	# Directly apply damage as this is for the freeze effect and should bypass normal hit cooldown
-	health -= damage_amount
-	health_bar.value = health  # Update the health bar's progress
+	if is_multiplayer_authority():
+		# Directly apply damage as this is for the freeze effect and should bypass normal hit cooldown
+		health -= damage_amount
+		health_bar.value = health  # Update the health bar's progress
 
-	if health <= 0:
-		die()
-	else:
-		# Flash to indicate freeze damage if needed or manage visuals separately
-		start_flash()
+		if health <= 0:
+			die()
+		else:
+			# Flash to indicate freeze damage if needed or manage visuals separately
+			start_flash()
 
 func _apply_freeze_damage():
-	apply_freeze_damage(int(randf_range(2, 5)))  # Apply 2-5 damage every second
-
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("Area entered: ", area)
-	if area.is_in_group("players"):
-		print("Player detected: ", area)
-		if area.has_method("apply_damage"):
-			area.apply_damage(5)
-		else:
-			print("No apply_damage method found on: ", area)
+	if is_multiplayer_authority():
+		apply_freeze_damage(int(randf_range(2, 5)))  # Apply 2-5 damage every second

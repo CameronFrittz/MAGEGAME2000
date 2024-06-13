@@ -128,3 +128,15 @@ freeze={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Monster"
+2d_physics/layer_3="PlayerAttack"
+2d_physics/layer_4="Monster Attack"
+2d_physics/layer_5="Freeze Reticle"
+2d_physics/layer_6="PlayerHurt"
+2d_physics/layer_7="MonsterHurt"
+2d_physics/layer_9="Projectiles"
+2d_physics/layer_32="LevelBounds"

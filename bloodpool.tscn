@@ -33,5 +33,6 @@ multimesh = SubResource("MultiMesh_2u7qj")
 texture = ExtResource("2_ko31c")
 
 [node name="Sprite2D" type="MeshInstance2D" parent="."]
+visible = false
 mesh = SubResource("ArrayMesh_nsafu")
 texture = ExtResource("2_pun31")
