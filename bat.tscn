@@ -4,22 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bi1tadvmnpcbf" path="res://SPRITES/Bat.png" id="2_las0d"]
 [ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://SFX/MonsterGrunt.wav" id="3_hlefe"]
 
-[sub_resource type="Animation" id="Animation_kpwt6"]
-resource_name = "fly_up_down"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0999, 0.1998, 0.2997, 0.3996, 0.4995, 0.6327, 0.8325, 0.9324, 1.0323, 1.1322, 1.2654, 1.3986),
-"transitions": PackedFloat32Array(1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917),
-"update": 1,
-"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
-}
-
 [sub_resource type="Animation" id="Animation_gx8o2"]
 resource_name = "fly_left"
 tracks/0/type = "value"
@@ -48,6 +32,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_kpwt6"]
+resource_name = "fly_up_down"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0999, 0.1998, 0.2997, 0.3996, 0.4995, 0.6327, 0.8325, 0.9324, 1.0323, 1.1322, 1.2654, 1.3986),
+"transitions": PackedFloat32Array(1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4n35w"]

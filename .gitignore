@@ -1,2 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
+Exports/MGv9/MGv9.console.pck
+Exports/MGv9/MGv9.console.exe
+Exports/MGv9/MGv9.console.console.exe
+Exports/MGv9.zip
+Exports/MGv5.zip
+Exports/MGv5.zip
+Exports/MGv5.zip

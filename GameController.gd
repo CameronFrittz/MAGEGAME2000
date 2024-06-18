@@ -5,7 +5,7 @@ const ROUND_DURATION = 120  # Duration of each round in seconds
 const INTER_ROUND_DURATION = 5  # Duration between rounds in seconds
 var alive_enemies = 0
 # Enemy spawn information
-var rounds = [1, 10, 20, 30, 50, 70, 90, 120, 150, 180, 250, 300, 350, 400, 420, 440, 500, 550, 600, 650]
+var rounds = [5, 10, 20, 30, 50, 70, 90, 120, 150, 180, 250, 300, 350, 400, 420, 440, 500, 550, 600, 650]
 var current_round = 0
 var enemy_scene = preload("res://monster.tscn")  # Assuming you have an enemy scene ready
 
@@ -79,11 +79,7 @@ func on_inter_round_timeout():
 func spawn_enemy():
 		if enemies_to_spawn > 0:
 			if is_multiplayer_authority():
-				var currentMonster
-				if randi() % 2 == 0:
-					currentMonster = monsterspawner_node.spawn()
-				else:
-					currentMonster = batspawner_node.spawn()
+				var currentMonster = monsterspawner_node.spawn()
 				currentMonster.enemy_died.connect(_on_monster_enemy_died)
 				enemies_to_spawn -= 1
 				alive_enemies += 1
