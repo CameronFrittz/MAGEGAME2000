@@ -13,6 +13,8 @@ const DAMAGE_COOLDOWN = 1  # 3 seconds cooldown
 var damage_cooldown_timer: float = 0.0
 @export var enemyattackdamage = randf_range(30, 45)
 @onready var playercamera = $Camera2D as Camera2D
+
+
 # Preloaded scenes and instances
 var fireball_scene = preload("res://fireball.tscn")    
 var reticle_scene = preload("res://reticle.tscn")
@@ -209,7 +211,8 @@ func update_reticle_position_with_joystick(delta: float):
 			print("Reticle Position: ", reticle_instance.position)  # Debug print
 
 # Initial setup of the scene
-func _ready(): 
+func _ready():
+	%GameOver.visible = false 
 	if not is_multiplayer_authority():
 		%PlayerTag.visible = true
 		%Nickname.text = MultiplayerController.nickname
@@ -297,24 +300,18 @@ func start_dash() -> void:
 	dash_timer = DASH_DURATION
 	dash_cooldown_timer = DASH_COOLDOWN + DASH_DURATION
 	moving = true
+	var player_node = get_node_or_null(".")  # Adjust the node path as necessary
 
 	# Adjust collision mask and layer on the Player node
-	var player_node = get_node_or_null(".")  # Adjust the node path as necessary
 	if player_node:
-		# Set bit 0 and 1 to be disabled and bit 31 to be enabled
 		var mask = player_node.collision_mask
 		var layer = player_node.collision_layer
-
-		mask &= ~(1 << 0)  # Disable bit 0
-		mask &= ~(1 << 1)  # Disable bit 1
-		mask |= (1 << 31)  # Enable bit 31
-
-		layer &= ~(1 << 0)  # Disable bit 0
-		layer &= ~(1 << 1)  # Disable bit 1
-		layer |= (1 << 31)  # Enable bit 31
-
-		player_node.collision_mask = mask
-		player_node.collision_layer = layer
+		%HurtArea.monitoring = false
+		%AttackArea.monitoring = false
+		%HurtArea.monitorable = false
+		%AttackArea.monitorable = false
+		
+		
 
 	else:
 		print("Player node not found")
@@ -324,6 +321,53 @@ func start_dash() -> void:
 	%DashSFX.pitch_scale = randf_range(2,2.5)
 	%DashSFX.playing = true
 	
+
+
+
+# Update velocity after dashing
+func update_post_dash_velocity() -> void:
+	var input_vector: Vector2 = Vector2.ZERO
+	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+
+	if input_vector.length() > 0:
+		input_vector = input_vector.normalized()
+		self.velocity = input_vector * SPEED
+	else:
+		self.velocity = Vector2.ZERO
+
+	var player_node = get_node_or_null(".")  # Adjust the node path as necessary
+	var player_hurt_node = %HurtArea
+	var player_attack_node = %AttackArea
+
+	# Adjust collision mask and layer on the Player node
+	if player_node:
+		var mask = player_node.collision_mask
+		var layer = player_node.collision_layer
+		%HurtArea.monitoring = true
+		%AttackArea.monitoring = true
+		%HurtArea.monitorable = true
+		%AttackArea.monitorable = true
+
+	
+	else:
+		print("Player node not found")
+
+	sprite.modulate.a = 1.0  # Restore full opacity
+	push_enemies_away_from_landing(global_position)
+
+func push_enemies_away_from_landing(landing_position: Vector2) -> void:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		var enemy_collision = enemy.get_node("CollisionPolygon2D")  # Ensure correct node name
+		if enemy_collision and enemy_collision.global_position.distance_to(landing_position) < 50:  # Example distance
+			var push_direction = enemy.last_movement_direction  # Use the enemy's last movement direction
+			if push_direction.length() == 0:
+				push_direction = (enemy.global_position - landing_position).normalized()  # Fallback if no movement direction
+			var push_distance = 10  # Adjust based on your game's needs
+			enemy.global_position += push_direction * push_distance
+			print("Pushed enemy:", enemy.name)  # Debug print
+
 
 # Handle attack mechanics
 func handle_attack(delta: float) -> void:
@@ -343,51 +387,7 @@ func start_attack() -> void:
 	%AttackSFX.pitch_scale = randf_range(.9,1.3)
 	%AttackSFX.playing = true
 
-# Update velocity after dashing
-func update_post_dash_velocity() -> void:
-	var input_vector: Vector2 = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
-	if input_vector.length() > 0:
-		input_vector = input_vector.normalized()
-		self.velocity = input_vector * SPEED
-	else:
-		self.velocity = Vector2.ZERO
-
-	var player_node = get_node_or_null(".")  # Adjust the node path as necessary
-	if player_node:
-		# Re-enable bit 0 and 1, keep bit 31 enabled
-		var mask = player_node.collision_mask
-		var layer = player_node.collision_layer
-
-		mask |= (1 << 0)  # Enable bit 0
-		mask |= (1 << 1)  # Enable bit 1
-		mask |= (1 << 31)  # Ensure bit 31 is still enabled (optional if it's intended)
-
-		layer |= (1 << 0)  # Enable bit 0
-		layer |= (1 << 1)  # Enable bit 1
-		layer |= (1 << 31)  # Ensure bit 31 is still enabled (optional if it's intended)
-
-		player_node.collision_mask = mask
-		player_node.collision_layer = layer
-	else:
-		print("Player node not found")
-
-	sprite.modulate.a = 1.0  # Restore full opacity
-	push_enemies_away_from_landing(global_position)
-
-func push_enemies_away_from_landing(landing_position: Vector2) -> void:
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	for enemy in enemies:
-		var enemy_collision = enemy.get_node("CollisionPolygon2D")  # Ensure correct node name
-		if enemy_collision and enemy_collision.global_position.distance_to(landing_position) < 50:  # Example distance
-			var push_direction = enemy.last_movement_direction  # Use the enemy's last movement direction
-			if push_direction.length() == 0:
-				push_direction = (enemy.global_position - landing_position).normalized()  # Fallback if no movement direction
-			var push_distance = 10  # Adjust based on your game's needs
-			enemy.global_position += push_direction * push_distance
-			print("Pushed enemy:", enemy.name)  # Debug print
 
 # Manage animations based on state
 func AnimationLoop():
@@ -541,18 +541,28 @@ func _on_freeze_duration_timeout():
 		freeze_reticle = null
 
 # Handle player death
+var is_dead = false
+
 func die():
-	if has_authority():	
-		print("Player has died")
-		emit_signal("player_died")  # Signal that other parts of the game can listen to
+	if is_dead:
+		return
+	is_dead = true
+	
+	print("Player has died")
+	set_physics_process(false)
+	set_process_input(false)
+	var animation_player = get_node("AnimationPlayer")
+	if animation_player:
+		animation_player.play("Death")
 
-		# Optionally play a death animation before removing the player
-		var animation_player = get_node("AnimationPlayer")
-		if animation_player:
-			animation_player.play("Death")
-			await get_tree().create_timer(animation_player.get_current_animation_length()).timeout
-		queue_free()
+		
+	
 
+func revive():
+	print("Player has been revived")
+	set_physics_process(true)
+	set_process_input(true)
+	health = 35
 
 func _on_hurt_area_area_entered(area: Area2D) -> void:
 	if damage_cooldown_timer <= 0:

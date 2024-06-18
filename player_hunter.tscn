@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dfnc0xr2dy5tq"]
+[gd_scene load_steps=42 format=3 uid="uid://dfnc0xr2dy5tq"]
 
 [ext_resource type="Script" path="res://player_hunter.gd" id="1_b4wei"]
 [ext_resource type="Texture2D" uid="uid://b42tajnsaic2i" path="res://SPRITES/hunter.png" id="2_143of"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://arrow_spawner.gd" id="6_dka8t"]
 [ext_resource type="Script" path="res://freeze_reticle_spawner.gd" id="7_n8we4"]
 [ext_resource type="AudioStream" uid="uid://k3bvbkmexk4k" path="res://SFX/Footstep.wav" id="8_d3bpr"]
+[ext_resource type="FontFile" uid="uid://bj0kuqitt4phg" path="res://SPRITES/alagard.ttf" id="9_yelva"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -548,8 +549,62 @@ tracks/2/keys = {
 "values": [1.0, 1.5]
 }
 
+[sub_resource type="Animation" id="Animation_runqe"]
+resource_name = "Death"
+length = 2.0
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.107871, 0.214998, 0.322125, 0.44342, 0.555269),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [218, 219, 220, 221, 222, 223]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameOver:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GameOver:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-577, -723), Vector2(-576, -185)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameOver:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_glaps"]
 _data = {
+"Death": SubResource("Animation_runqe"),
 "Idle_E": SubResource("Animation_3i2lq"),
 "Idle_N": SubResource("Animation_7hu3d"),
 "Idle_NE": SubResource("Animation_r5ik8"),
@@ -783,6 +838,20 @@ offset_top = -10.0
 offset_right = 53.0
 offset_bottom = 13.0
 theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOver" type="Label" parent="."]
+visible = false
+offset_left = -576.0
+offset_top = -185.0
+offset_right = 575.0
+offset_bottom = 465.0
+theme_override_colors/font_color = Color(0.990048, 0.134735, 0.0947915, 1)
+theme_override_colors/font_shadow_color = Color(0.400663, 0.0100097, 0.00555463, 1)
+theme_override_fonts/font = ExtResource("9_yelva")
+theme_override_font_sizes/font_size = 100
+text = "Try Harder..."
 horizontal_alignment = 1
 vertical_alignment = 1
 

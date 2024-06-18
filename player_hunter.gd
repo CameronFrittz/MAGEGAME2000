@@ -567,18 +567,26 @@ func _on_freeze_duration_timeout():
 		freeze_reticle.queue_free()
 		freeze_reticle = null
 
+func revive():
+	print("Player has been revived")
+	set_physics_process(true)
+	set_process_input(true)
+	health = 35
+
+
+var is_dead = false
 # Handle player death
 func die():
-	if has_authority():	
-		print("Player has died")
-		emit_signal("player_died")  # Signal that other parts of the game can listen to
-
-		# Optionally play a death animation before removing the player
-		var animation_player = get_node("AnimationPlayer")
-		if animation_player:
-			animation_player.play("Death")
-			await get_tree().create_timer(animation_player.get_current_animation_length()).timeout
-		queue_free()
+	if is_dead:
+		return
+	is_dead = true
+	
+	print("Player has died")
+	set_physics_process(false)
+	set_process_input(false)
+	var animation_player = get_node("AnimationPlayer")
+	if animation_player:
+		animation_player.play("Death")
 
 
 func _on_hurt_area_area_entered(area: Area2D) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bhsnp72cip8du"]
+[gd_scene load_steps=39 format=3 uid="uid://bhsnp72cip8du"]
 
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
 [ext_resource type="Script" path="res://player.gd" id="1_3grgq"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://1deeyh63h0vv" path="res://SFX/Scurry.wav" id="5_i2e14"]
 [ext_resource type="Script" path="res://fireball_spawner.gd" id="6_8tcqq"]
 [ext_resource type="Script" path="res://freeze_reticle_spawner.gd" id="7_p1r25"]
+[ext_resource type="FontFile" uid="uid://bj0kuqitt4phg" path="res://SPRITES/alagard.ttf" id="8_uglhr"]
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -439,8 +440,62 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7, 8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_mdvn3"]
+resource_name = "Death"
+length = 2.0
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.107871, 0.214998, 0.322125, 0.44342, 0.555269),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [218, 219, 220, 221, 222, 223]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTag/GameOver:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTag/GameOver:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-577, -723), Vector2(-576, -185)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTag/GameOver:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_glaps"]
 _data = {
+"Death": SubResource("Animation_mdvn3"),
 "Idle_E": SubResource("Animation_3i2lq"),
 "Idle_N": SubResource("Animation_7hu3d"),
 "Idle_NE": SubResource("Animation_r5ik8"),
@@ -505,6 +560,7 @@ collision_mask = 2147483648
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(-0.68, 0.32)
 scale = Vector2(0.847194, 2.83933)
@@ -529,35 +585,7 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_glaps")
 }
-
-[node name="AttackArea" type="Area2D" parent="."]
-z_index = 4
-y_sort_enabled = true
-position = Vector2(0.32, 13.32)
-collision_layer = 4
-collision_mask = 8
-monitoring = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
-z_index = 4
-y_sort_enabled = true
-position = Vector2(-6, 23)
-rotation = 0.0508076
-scale = Vector2(2.30205, 1)
-polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -15.7932, 23.1329, -35.7506, 14.64, -65.7965, -0.161915, -86.0922, -13.9931, -62.4446, -16.9785, -40.0667)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_v3cba")
-
-[node name="BuildingFade" type="Area2D" parent="."]
-collision_layer = 2147483648
-collision_mask = 2147483648
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingFade"]
-y_sort_enabled = true
-position = Vector2(-0.68, 0.32)
-scale = Vector2(0.847194, 2.83933)
-polygon = PackedVector2Array(-2.61988, -3.47826, -4, 6, 8.51462, 4.86956, 7.85965, -3.47826)
+autoplay = "Death"
 
 [node name="SFX" type="Node2D" parent="."]
 
@@ -589,7 +617,12 @@ script = ExtResource("6_8tcqq")
 _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
 script = ExtResource("7_p1r25")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v3cba")
+
 [node name="HurtArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
 collision_layer = 0
 collision_mask = 40
 
@@ -600,6 +633,35 @@ position = Vector2(-9.53674e-07, 18)
 rotation = 0.0508076
 scale = Vector2(0.813056, 0.353188)
 polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -15.7932, 7.68726, -26.2768, 8.18804, -65.9868, 1.75863, -76.3366, -2.73725, -61.5358, -4.34456, -40.7289)
+
+[node name="AttackArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+y_sort_enabled = true
+position = Vector2(0.32, 13.32)
+collision_layer = 4
+collision_mask = 8
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
+z_index = 4
+y_sort_enabled = true
+position = Vector2(-6, 23)
+rotation = 0.0508076
+scale = Vector2(2.30205, 1)
+polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -15.7932, 23.1329, -35.7506, 14.64, -65.7965, -0.161915, -86.0922, -13.9931, -62.4446, -16.9785, -40.0667)
+
+[node name="BuildingFade" type="Area2D" parent="."]
+visible = false
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingFade"]
+y_sort_enabled = true
+position = Vector2(-0.68, 0.32)
+scale = Vector2(0.847194, 2.83933)
+polygon = PackedVector2Array(-2.61988, -3.47826, -4, 6, 8.51462, 4.86956, 7.85965, -3.47826)
 
 [node name="PlayerTag" type="Control" parent="."]
 unique_name_in_owner = true
@@ -644,5 +706,20 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[node name="GameOver" type="Label" parent="PlayerTag"]
+unique_name_in_owner = true
+visible = false
+offset_left = -552.0
+offset_top = -150.0
+offset_right = 599.0
+offset_bottom = 500.0
+theme_override_colors/font_color = Color(0.990048, 0.134735, 0.0947915, 1)
+theme_override_colors/font_shadow_color = Color(0.400663, 0.0100097, 0.00555463, 1)
+theme_override_fonts/font = ExtResource("8_uglhr")
+theme_override_font_sizes/font_size = 100
+text = "Try Harder..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
+[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
