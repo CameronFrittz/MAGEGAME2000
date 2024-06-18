@@ -500,12 +500,11 @@ modulate_color = Color(0.352941, 1, 0, 1)
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
-collision_layer = 2147483648
+collision_layer = 2147483649
 collision_mask = 2147483648
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 y_sort_enabled = true
 position = Vector2(-0.68, 0.32)
 scale = Vector2(0.847194, 2.83933)
@@ -532,7 +531,6 @@ libraries = {
 }
 
 [node name="AttackArea" type="Area2D" parent="."]
-visible = false
 z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
@@ -552,7 +550,6 @@ polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -1
 replication_config = SubResource("SceneReplicationConfig_v3cba")
 
 [node name="BuildingFade" type="Area2D" parent="."]
-visible = false
 collision_layer = 2147483648
 collision_mask = 2147483648
 
@@ -593,7 +590,6 @@ _spawnable_scenes = PackedStringArray("res://FreezeReticle.tscn")
 script = ExtResource("7_p1r25")
 
 [node name="HurtArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 40
 

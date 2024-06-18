@@ -322,7 +322,8 @@ pattern_11 = SubResource("TileMapPattern_wfaat")
 pattern_12 = SubResource("TileMapPattern_buha8")
 
 [node name="Area2D" type="Area2D"]
-gravity_space_override = 1
+z_index = 4
+y_sort_enabled = true
 gravity_point = true
 
 [node name="Props" type="TileMapLayer" parent="."]
@@ -334,3 +335,5 @@ tile_set = SubResource("TileSet_5vrge")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-24, 1, -24, -24, 0, -36, 24, -24, 24, 0, 0, 13)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
