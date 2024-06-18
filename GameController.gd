@@ -17,6 +17,7 @@ var spawn_timer = Timer.new()  # Timer for controlling spawn intervals
 var enemies_to_spawn = 0  # This will track how many enemies are left to spawn
 @onready var monsters_node = get_node("/root/MAGEGAME/Monsters")  # Adjust this path to your actual node
 @onready var monsterspawner_node = get_node("/root/MAGEGAME/MonsterSpawner")
+@onready var batspawner_node = get_node("/root/MAGEGAME/BatSpawner")
 # Manage spawn points
 
 
@@ -78,7 +79,11 @@ func on_inter_round_timeout():
 func spawn_enemy():
 		if enemies_to_spawn > 0:
 			if is_multiplayer_authority():
-				var currentMonster = monsterspawner_node.spawn()
+				var currentMonster
+				if randi() % 2 == 0:
+					currentMonster = monsterspawner_node.spawn()
+				else:
+					currentMonster = batspawner_node.spawn()
 				currentMonster.enemy_died.connect(_on_monster_enemy_died)
 				enemies_to_spawn -= 1
 				alive_enemies += 1
