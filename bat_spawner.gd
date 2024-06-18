@@ -6,6 +6,8 @@ var spawn_points = []
 func _ready() -> void:
 	spawn_function = Callable(self, "spawn_monster")
 	set_spawn_points()
+	
+	
 
 
 func _process(_delta: float) -> void:
@@ -22,5 +24,5 @@ func spawn_monster(_data: Variant) -> Node:
 
 
 func set_spawn_points():
-	for point in get_tree().get_nodes_in_group("SpawnPoints"):
+	for point in get_tree().get_nodes_in_group("BatSpawnPoint"):
 		spawn_points.append(point.global_position)
