@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bhsnp72cip8du"]
+[gd_scene load_steps=40 format=3 uid="uid://bhsnp72cip8du"]
 
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
 [ext_resource type="Script" path="res://player.gd" id="1_3grgq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://fireball_spawner.gd" id="6_8tcqq"]
 [ext_resource type="Script" path="res://freeze_reticle_spawner.gd" id="7_p1r25"]
 [ext_resource type="FontFile" uid="uid://bj0kuqitt4phg" path="res://SPRITES/alagard.ttf" id="8_uglhr"]
+[ext_resource type="PackedScene" uid="uid://bmyiiyeinul1d" path="res://rain.tscn" id="9_ob1wo"]
 
 [sub_resource type="Animation" id="Animation_mdvn3"]
 resource_name = "Death"
@@ -726,6 +727,12 @@ theme_override_font_sizes/font_size = 100
 text = "Try Harder..."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="rain" parent="." instance=ExtResource("9_ob1wo")]
+unique_name_in_owner = true
+z_index = 10
+y_sort_enabled = true
+position = Vector2(567, -264)
 
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

@@ -218,6 +218,7 @@ func _ready():
 		%Nickname.text = MultiplayerController.nickname
 	add_to_group("players")
 	if has_authority():
+		%rain.visible = true
 		var player_camera = get_node("Camera2D")
 		player_camera.make_current()
 	if hud:
