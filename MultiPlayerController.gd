@@ -36,7 +36,6 @@ func peer_disconnected(id):
 
 func connected_to_server():
 	print("Connecting to server")
-	#SendPlayerInformation.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
 
 func connection_failed():
 	print("Connection failed")
@@ -49,7 +48,6 @@ func _on_host_button_down():
 		return
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting For Players!")
-	#SendPlayerInformation($LineEdit.text, multiplayer.get_unique_id())
 
 func _on_join_button_down():
 	peer = ENetMultiplayerPeer.new()
@@ -65,17 +63,6 @@ func StartGame():
 	get_tree().root.add_child(scene)
 	self.hide()
 
-#@rpc("any_peer")
-#func SendPlayerInformation(name, id):
-	#if !GameManager.Players.has(id):
-		#GameManager.Players[id] = {
-			#"name": name,
-			#"id": id,
-			#"score": 0
-		#}
-	#if multiplayer.is_server():
-		#for i in GameManager.Players:
-			#SendPlayerInformation.rpc(GameManager.Players[i].name, i)
 
 
 func _on_item_list_item_selected(index: int) -> void:

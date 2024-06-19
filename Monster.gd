@@ -197,16 +197,16 @@ func die():
 	
 
 func _enemy_died():
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		print("Despawning enemy")
 		queue_free()  # This method will be called when the timer runs out
 
 func _on_death_timeout():
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		queue_free()  # This method will be called when the timer runs out
 #
 func freeze(duration):
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		is_frozen = true
 		if is_frozen == true:
 			set_physics_process(false)  # Stop the monster's movement and actions
@@ -227,7 +227,7 @@ func freeze(duration):
 			modulate = Color(1, 1, 1)  # Restore original color
 
 func apply_freeze_damage(damage_amount: int):
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		# Directly apply damage as this is for the freeze effect and should bypass normal hit cooldown
 		health -= damage_amount
 		health_bar.value = health  # Update the health bar's progress
@@ -239,5 +239,5 @@ func apply_freeze_damage(damage_amount: int):
 			start_flash()
 
 func _apply_freeze_damage():
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		apply_freeze_damage(int(randf_range(2, 5)))  # Apply 2-5 damage every second

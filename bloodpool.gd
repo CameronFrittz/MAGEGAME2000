@@ -3,10 +3,8 @@ extends Node2D
 @onready var timer: Timer = Timer.new()
 @onready var _mesh_instance = $Sprite2D
 @onready var _multi_mesh_instance = $MultiMeshInstance2D
-
 const MAX_ALPHA: float = 0.70
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	_do_distribution()
@@ -17,7 +15,7 @@ func _ready() -> void:
 	timer.timeout.connect(_fadein_step)
 	timer.start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
 	pass
 

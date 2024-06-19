@@ -9,6 +9,59 @@
 [ext_resource type="Script" path="res://freeze_reticle_spawner.gd" id="7_p1r25"]
 [ext_resource type="FontFile" uid="uid://bj0kuqitt4phg" path="res://SPRITES/alagard.ttf" id="8_uglhr"]
 
+[sub_resource type="Animation" id="Animation_mdvn3"]
+resource_name = "Death"
+length = 2.0
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.107871, 0.214998, 0.322125, 0.44342, 0.555269),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [218, 219, 220, 221, 222, 223]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTag/GameOver:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTag/GameOver:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-577, -723), Vector2(-576, -185)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTag/GameOver:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
 length = 1.8
@@ -440,59 +493,6 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7, 8, 9, 10, 11]
 }
 
-[sub_resource type="Animation" id="Animation_mdvn3"]
-resource_name = "Death"
-length = 2.0
-step = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.107871, 0.214998, 0.322125, 0.44342, 0.555269),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [218, 219, 220, 221, 222, 223]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTag/GameOver:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTag/GameOver:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-577, -723), Vector2(-576, -185)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTag/GameOver:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_glaps"]
 _data = {
 "Death": SubResource("Animation_mdvn3"),
@@ -545,6 +545,12 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:position")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:collision_layer")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:collision_mask")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ribq6"]
 
@@ -555,12 +561,11 @@ modulate_color = Color(0.352941, 1, 0, 1)
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
-collision_layer = 2147483649
-collision_mask = 2147483648
+collision_layer = 2147485697
+collision_mask = 2147485696
 script = ExtResource("1_3grgq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 y_sort_enabled = true
 position = Vector2(-0.68, 0.32)
 scale = Vector2(0.847194, 2.83933)
@@ -622,7 +627,6 @@ replication_config = SubResource("SceneReplicationConfig_v3cba")
 
 [node name="HurtArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 40
 
@@ -636,7 +640,6 @@ polygon = PackedVector2Array(-4.54253, -18.5009, -0.27956, -12.6557, 6.61045, -1
 
 [node name="AttackArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
@@ -653,7 +656,6 @@ scale = Vector2(2.30205, 1)
 polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -15.7932, 23.1329, -35.7506, 14.64, -65.7965, -0.161915, -86.0922, -13.9931, -62.4446, -16.9785, -40.0667)
 
 [node name="BuildingFade" type="Area2D" parent="."]
-visible = false
 collision_layer = 2147483648
 collision_mask = 2147483648
 
@@ -709,6 +711,7 @@ vertical_alignment = 1
 [node name="GameOver" type="Label" parent="PlayerTag"]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 offset_left = -552.0
 offset_top = -150.0
 offset_right = 599.0
