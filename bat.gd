@@ -266,7 +266,7 @@ func die():
 	deathpausetimer.one_shot = true  # Ensure it fires only once
 	deathpausetimer.timeout.connect(_on_death_timeout)  # Connect timeout signal to a function
 	deathpausetimer.start()  # Start the timer
-	emit_signal("enemy_died")
+	#emit_signal("enemy_died")
 	_enemy_died()
 	
 
