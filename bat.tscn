@@ -100,6 +100,7 @@ scale = Vector2(0.278526, 0.278526)
 texture = ExtResource("2_las0d")
 hframes = 3
 vframes = 3
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -113,20 +114,6 @@ y_sort_enabled = true
 position = Vector2(-3.1112, -8.26137)
 scale = Vector2(1.21847, 0.397592)
 polygon = PackedVector2Array(-2.37085, 3.17251, -4.83295, 28.3239, 9.11898, 28.3239, 6.65687, 3.17251)
-
-[node name="AttackArea" type="Area2D" parent="."]
-visible = false
-z_index = 4
-y_sort_enabled = true
-collision_layer = 12
-collision_mask = 12
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
-z_index = 3
-y_sort_enabled = true
-position = Vector2(-2, -3)
-scale = Vector2(0.477724, 0.231431)
-polygon = PackedVector2Array(-10.6456, -18.3739, -14.6456, 29.6261, 23.3544, 28.6261, 17.3544, -18.3739)
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 y_sort_enabled = true
@@ -162,3 +149,17 @@ position = Vector2(-0.999996, 8)
 rotation = 0.0508076
 scale = Vector2(0.380849, 0.199981)
 polygon = PackedVector2Array(-19.1623, -20.7865, -6.42667, -15.2684, 6.61045, -15.7932, 23.1329, -35.7506, 14.64, -65.7965, -0.161915, -86.0922, -13.9931, -62.4446, -16.9785, -40.0667)
+
+[node name="AttackArea" type="Area2D" parent="."]
+visible = false
+z_index = 4
+y_sort_enabled = true
+collision_layer = 12
+collision_mask = 12
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackArea"]
+z_index = 3
+y_sort_enabled = true
+position = Vector2(-2, -3)
+scale = Vector2(0.477724, 0.231431)
+polygon = PackedVector2Array(-10.6456, -18.3739, -14.6456, 29.6261, 23.3544, 28.6261, 17.3544, -18.3739)

@@ -5,7 +5,6 @@ var SPEED: float = 180
 const RETREAT_DISTANCE: float = 200
 const MIN_DISTANCE: float = 50
 const RETREAT_COOLDOWN: float = 5.0
-signal enemy_died
 # Health and flashing properties
 @export var health: int = 50
 var flash_duration: float = 0.2
@@ -142,7 +141,7 @@ func fly_in_circle(delta: float, target_position: Vector2) -> Vector2:
 	return combined_velocity.normalized() * SPEED
 
 
-func wander(delta: float) -> Vector2:
+func wander(_delta: float) -> Vector2:
 	if not is_wandering or global_position.distance_to(wander_target) < 10.0:
 		wander_target = global_position + Vector2(randf_range(-wander_radius, wander_radius), randf_range(-wander_radius, wander_radius))
 		is_wandering = true

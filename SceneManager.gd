@@ -7,14 +7,15 @@ var currentPlayer
 
 func _enter_tree():
 	get_node("PlayerSpawner").set_multiplayer_authority(1)
+	get_node("BatSpawner").set_multiplayer_authority(1)
 
 func _ready():
 	if not is_multiplayer_authority():
 		spawn_my_player.rpc_id(1, MultiplayerController.nickname,MultiplayerController.player_scene_selection)
 	if is_multiplayer_authority():
-				var currentBat = batspawner_node.spawn()
-				var currentBat1 = batspawner_node.spawn()
-				var currentBat2 = batspawner_node.spawn()
+				var _currentBat = batspawner_node.spawn()
+				var _currentBat1 = batspawner_node.spawn()
+				var _currentBat2 = batspawner_node.spawn()
 	pass
 
 func _process(_delta):

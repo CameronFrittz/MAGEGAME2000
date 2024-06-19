@@ -304,8 +304,8 @@ func start_dash() -> void:
 
 	# Adjust collision mask and layer on the Player node
 	if player_node:
-		var mask = player_node.collision_mask
-		var layer = player_node.collision_layer
+		#var mask = player_node.collision_mask
+		#var layer = player_node.collision_layer
 		%HurtArea.monitoring = false
 		%AttackArea.monitoring = false
 		%HurtArea.monitorable = false
@@ -337,13 +337,9 @@ func update_post_dash_velocity() -> void:
 		self.velocity = Vector2.ZERO
 
 	var player_node = get_node_or_null(".")  # Adjust the node path as necessary
-	var player_hurt_node = %HurtArea
-	var player_attack_node = %AttackArea
 
 	# Adjust collision mask and layer on the Player node
 	if player_node:
-		var mask = player_node.collision_mask
-		var layer = player_node.collision_layer
 		%HurtArea.monitoring = true
 		%AttackArea.monitoring = true
 		%HurtArea.monitorable = true
