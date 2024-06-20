@@ -1,8 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://wcxol0v0oq7j"]
+[gd_scene load_steps=13 format=3 uid="uid://wcxol0v0oq7j"]
 
 [ext_resource type="Script" path="res://bat.gd" id="1_ycc4u"]
+[ext_resource type="Shader" path="res://SHADERS/outline.gdshader" id="2_4w16e"]
 [ext_resource type="Texture2D" uid="uid://bi1tadvmnpcbf" path="res://SPRITES/Bat.png" id="2_las0d"]
 [ext_resource type="AudioStream" uid="uid://dea2glph5sfe8" path="res://SFX/flap2.wav" id="3_skbvo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fpfu3"]
+shader = ExtResource("2_4w16e")
+shader_parameter/color = Color(0.596078, 0.0235294, 0.0117647, 1)
+shader_parameter/width = 2.37
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_gx8o2"]
 resource_name = "fly_left"
@@ -132,6 +142,7 @@ script = ExtResource("1_ycc4u")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
+material = SubResource("ShaderMaterial_fpfu3")
 scale = Vector2(0.278526, 0.278526)
 texture = ExtResource("2_las0d")
 hframes = 3

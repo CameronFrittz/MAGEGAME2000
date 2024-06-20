@@ -565,7 +565,7 @@ replication_config = SubResource("SceneReplicationConfig_r6i34")
 [node name="GruntSFX" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_g2id6")
-volume_db = -4.473
+volume_db = -1.942
 
 [node name="GroanSFX" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
