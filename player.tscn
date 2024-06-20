@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=3 uid="uid://bhsnp72cip8du"]
 
+[ext_resource type="Shader" path="res://SHADERS/outline.gdshader" id="1_0vyox"]
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
-[ext_resource type="Shader" path="res://player.gdshader" id="2_vk75x"]
 [ext_resource type="AudioStream" uid="uid://06ei3vwc5lou" path="res://SFX/Whip_Whoosh_BW.11029.wav" id="3_1edxq"]
 [ext_resource type="AudioStream" uid="uid://cgbqi6vsvkxjg" path="res://SFX/FireballPassByHeavy_SFXB._1.wav" id="4_qg008"]
 [ext_resource type="AudioStream" uid="uid://1deeyh63h0vv" path="res://SFX/Scurry.wav" id="5_i2e14"]
@@ -588,7 +588,13 @@ func _on_hurt_area_area_entered(area: Area2D) -> void:
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oq15k"]
-shader = ExtResource("2_vk75x")
+shader = ExtResource("1_0vyox")
+shader_parameter/color = Color(0.704836, 0.563498, 0.0436016, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = true
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_runqe"]
 resource_name = "Death"
@@ -1247,6 +1253,21 @@ properties/8/replication_mode = 1
 texture = SubResource("CanvasTexture_ribq6")
 modulate_color = Color(0.352941, 1, 0, 1)
 
+[sub_resource type="Animation" id="Animation_4b3ew"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 3
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_gkyet"]
 resource_name = "Spin"
 length = 5.0
@@ -1261,21 +1282,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.261799, 0.0, -0.261799, 0.0, -0.261799, 0.0, -0.261799, 0.0, -0.261799, 0.0, -0.261799, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_4b3ew"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 3
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7lbrm"]
@@ -1376,7 +1382,7 @@ visible = false
 z_index = 4
 y_sort_enabled = true
 position = Vector2(0.32, 13.32)
-collision_layer = 4
+collision_layer = 16388
 collision_mask = 8
 monitoring = false
 

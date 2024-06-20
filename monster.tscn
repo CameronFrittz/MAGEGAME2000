@@ -1,8 +1,18 @@
-[gd_scene load_steps=33 format=3 uid="uid://qo6tbrl3s5cc"]
+[gd_scene load_steps=35 format=3 uid="uid://qo6tbrl3s5cc"]
 
 [ext_resource type="Script" path="res://Monster.gd" id="1_hqut6"]
 [ext_resource type="Texture2D" uid="uid://dujpxlv25ahbk" path="res://SPRITES/Monster.png" id="2_0w6fd"]
+[ext_resource type="Shader" path="res://SHADERS/outline.gdshader" id="2_s128n"]
 [ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://SFX/MonsterGrunt.wav" id="3_g2id6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4782e"]
+shader = ExtResource("2_s128n")
+shader_parameter/color = Color(0.594792, 0.0216417, 0.0120318, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = true
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_3i2lq"]
 resource_name = "Idle_E"
@@ -503,6 +513,7 @@ script = ExtResource("1_hqut6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
+material = SubResource("ShaderMaterial_4782e")
 position = Vector2(-3, 0)
 scale = Vector2(1.1817, 1.1817)
 texture = ExtResource("2_0w6fd")
