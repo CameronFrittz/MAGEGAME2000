@@ -66,6 +66,8 @@ var anim_mode: String = "Idle"
 @onready var sprite = $Sprite2D
 @onready var game_manager = get_node("/root/GameManager")  # Reference to the GameManager
 @onready var MultiplayerController = get_node("/root/Control")
+@onready var spin_flashlight = %SpinFlashlight
+@onready var rain_particles = $rain as GPUParticles2D
 # Zoom properties for camera control
 const ZOOM_LEVELS: Array = [Vector2(0.4, 0.4), Vector2(0.6, 0.6), Vector2(0.8, 0.8), Vector2(1.0, 1.0), Vector2(1.2, 1.2), Vector2(1.4, 1.4), Vector2(1.6, 1.6), Vector2(1.8, 1.8), Vector2(2.0, 2.0), Vector2(2.2, 2.2)]
 const ZOOM_SPEED: float = 3
@@ -218,7 +220,8 @@ func _ready():
 		%Nickname.text = MultiplayerController.nickname
 	add_to_group("players")
 	if has_authority():
-		%rain.visible = true
+		spin_flashlight.get_animation("Spin").loop = true
+		spin_flashlight.play("Spin")
 		var player_camera = get_node("Camera2D")
 		player_camera.make_current()
 	if hud:

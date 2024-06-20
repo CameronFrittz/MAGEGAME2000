@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Constants for behavior
-var SPEED: float = 100
+var SPEED: float = 70
 const RETREAT_DISTANCE: float = 200
 const MIN_DISTANCE: float = 20
 const RETREAT_COOLDOWN: float = 5.0

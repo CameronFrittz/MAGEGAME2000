@@ -140,3 +140,7 @@ freeze={
 2d_physics/layer_7="MonsterHurt"
 2d_physics/layer_9="Projectiles"
 2d_physics/layer_32="LevelBounds"
+
+[physics]
+
+2d/default_gravity_vector=Vector2(0, 0)
