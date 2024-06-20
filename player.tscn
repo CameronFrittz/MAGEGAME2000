@@ -1417,6 +1417,7 @@ polygon = PackedVector2Array(-2.61988, -3.47826, -4, 6, 8.51462, 4.86956, 7.8596
 
 [node name="GameOver" type="Label" parent="."]
 unique_name_in_owner = true
+z_index = 5
 offset_left = -576.0
 offset_top = -185.0
 offset_right = 575.0
