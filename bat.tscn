@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://bat.gd" id="1_ycc4u"]
 [ext_resource type="Texture2D" uid="uid://bi1tadvmnpcbf" path="res://SPRITES/Bat.png" id="2_las0d"]
-[ext_resource type="AudioStream" uid="uid://cjt7hrmvnqc0b" path="res://SFX/MonsterGrunt.wav" id="3_hlefe"]
+[ext_resource type="AudioStream" uid="uid://dea2glph5sfe8" path="res://SFX/flap2.wav" id="3_skbvo"]
 
 [sub_resource type="Animation" id="Animation_gx8o2"]
 resource_name = "fly_left"
@@ -17,6 +17,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlapSFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_2iuhy"]
@@ -33,6 +45,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlapSFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kpwt6"]
 resource_name = "fly_up_down"
@@ -48,6 +72,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917, 1.56917),
 "update": 1,
 "values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlapSFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4n35w"]
@@ -100,7 +136,6 @@ scale = Vector2(0.278526, 0.278526)
 texture = ExtResource("2_las0d")
 hframes = 3
 vframes = 3
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -134,10 +169,12 @@ show_percentage = false
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_r6i34")
 
-[node name="GruntSFX" type="AudioStreamPlayer2D" parent="."]
+[node name="FlapSFX" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_hlefe")
+stream = ExtResource("3_skbvo")
 volume_db = -4.473
+pitch_scale = 1.96
+max_distance = 500.0
 
 [node name="HurtArea" type="Area2D" parent="."]
 visible = false

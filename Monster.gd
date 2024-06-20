@@ -30,8 +30,13 @@ var health_checked = false
 var hit_cooldown: float = 0.5  # Cooldown in seconds between hits
 @onready var pick_target_timer = Timer.new()
 @onready  var health_bar = $ProgressBar 
+@onready var groan_sfx = $GroanSFX
+var groan_timer = Timer.new()
 var last_movement_direction: Vector2 = Vector2.ZERO
 func _ready():
+	add_child(groan_timer)
+	groan_timer.timeout.connect(_on_groan_timer_timeout)
+	groan_timer.start(randf_range(0, 5))
 	health_bar.visible = false
 	players_parent = get_node("/root/MAGEGAME/Players")
 	monsters_parent = get_node("/root/MAGEGAME/Monsters")  # Change this to the correct path
@@ -48,6 +53,10 @@ func _ready():
 	pick_target_timer.autostart = true
 	pick_target_timer.timeout.connect(pick_target)
 	add_child(pick_target_timer)
+
+func _on_groan_timer_timeout():
+	groan_sfx.play()
+	groan_timer.start(randf_range(5, 10))
 
 func update_last_movement_direction(_velocity: Vector2) -> void:
 	if _velocity.length() > 0:

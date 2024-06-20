@@ -216,14 +216,14 @@ func apply_damage(damage_amount: int):
 			die()
 		else:
 			start_flash()
-		%GruntSFX.pitch_scale = randf_range(1,1.5)
-		%GruntSFX.playing = true
+		#%GruntSFX.pitch_scale = randf_range(1,1.5)
+		#%GruntSFX.playing = true
 	else:
 		var droppedbp = bloodpool.instantiate()
 		droppedbp.position = global_position
 		monsters_parent.add_child(droppedbp)
-		%GruntSFX.pitch_scale = randf_range(1,1.5)
-		%GruntSFX.playing = true
+		#%GruntSFX.pitch_scale = randf_range(1,1.5)
+		#%GruntSFX.playing = true
 		
 		
 func apply_arrowdamage(damage_amount: int):
@@ -238,14 +238,14 @@ func apply_arrowdamage(damage_amount: int):
 			die()
 		else:
 			start_flash()
-		%GruntSFX.pitch_scale = randf_range(1,1.5)
-		%GruntSFX.playing = true
+		#%GruntSFX.pitch_scale = randf_range(1,1.5)
+		#%GruntSFX.playing = true
 	else:
 		var droppedbp = bloodpool.instantiate()
 		droppedbp.position = global_position
 		monsters_parent.add_child(droppedbp)
-		%GruntSFX.pitch_scale = randf_range(1,1.5)
-		%GruntSFX.playing = true
+		#%GruntSFX.pitch_scale = randf_range(1,1.5)
+		#%GruntSFX.playing = true
 
 
 
@@ -253,8 +253,8 @@ func apply_arrowdamage(damage_amount: int):
 
 
 func die():
-	%GruntSFX.pitch_scale = randf_range(1,1.5)
-	%GruntSFX.playing = true
+	#%GruntSFX.pitch_scale = randf_range(1,1.5)
+	#%GruntSFX.playing = true
 	if is_dying:
 		return  # Prevent re-entry if already dying
 	is_dying = true

@@ -547,7 +547,7 @@ func die():
 	if is_dead:
 		return
 	is_dead = true
-	
+	%DeathSFX.playing = true
 	print("Player has died")
 	set_physics_process(false)
 	set_process_input(false)
@@ -569,6 +569,7 @@ func _on_hurt_area_area_entered(area: Area2D) -> void:
 		apply_damage(randf_range(2,5))
 		start_flash()
 		apply_knockback(area.global_position, 500)
+		%HurtSFX.playing = true
 		damage_cooldown_timer = DAMAGE_COOLDOWN
 	else:
 		print("Damage action is on cooldown.")
