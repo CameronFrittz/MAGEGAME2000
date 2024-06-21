@@ -719,7 +719,6 @@ _data = {
 }
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_uj3mq"]
-mix_rate = 48000.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 6

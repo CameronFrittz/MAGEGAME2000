@@ -63,8 +63,7 @@ var anim_mode: String = "Idle"
 
 # HUD and sprite references
 @onready var hud = get_node("/root/MAGEGAME/hud/")
-@onready var sprite = $Sprite2D
-@onready var game_manager = get_node("/root/GameManager")  # Reference to the GameManager
+@onready var sprite = $Sprite2D  # Reference to the GameManager
 @onready var MultiplayerController = get_node("/root/Control")
 @onready var spin_flashlight = %SpinFlashlight
 # Zoom properties for camera control

@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://bu6gf0hkm5oqw"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://bu6gf0hkm5oqw"]
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_srjd0"]
 resource_name = "Compressor"
@@ -17,6 +17,7 @@ wet = 0.51
 
 [sub_resource type="AudioEffectCapture" id="AudioEffectCapture_7sg3s"]
 resource_name = "Capture"
+buffer_length = 0.3
 
 [sub_resource type="AudioEffectEQ" id="AudioEffectEQ_ttlpa"]
 resource_name = "EQ"
@@ -24,13 +25,6 @@ band_db/32_hz = -6.5
 band_db/100_hz = -2.5
 band_db/320_hz = -3.6
 band_db/10000_hz = -1.5
-
-[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_4sw40"]
-resource_name = "Compressor"
-threshold = -20.5
-ratio = 9.3
-gain = 9.1
-attack_us = 135.0
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_glxea"]
 resource_name = "Reverb"
@@ -107,7 +101,5 @@ bus/8/volume_db = 1.06049
 bus/8/send = &"Master"
 bus/8/effect/0/effect = SubResource("AudioEffectEQ_ttlpa")
 bus/8/effect/0/enabled = true
-bus/8/effect/1/effect = SubResource("AudioEffectCompressor_4sw40")
+bus/8/effect/1/effect = SubResource("AudioEffectReverb_glxea")
 bus/8/effect/1/enabled = true
-bus/8/effect/2/effect = SubResource("AudioEffectReverb_glxea")
-bus/8/effect/2/enabled = true

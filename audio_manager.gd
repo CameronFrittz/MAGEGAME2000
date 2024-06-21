@@ -8,8 +8,12 @@ var inputThreshold = 0.00
 var receiveBuffer := PackedFloat32Array()
 @export var outputPath : NodePath
 var compressor : AudioEffectCompressor
-var downsample_rate = 16000  # 16kHz downsampling
-var sampling_rate = 48000  # Default to 44.1kHz, you might need to adjust this
+var gate : AudioEffectGate
+var eq : AudioEffectEQ
+var downsample_rate = 8000  # Downsampling to 8kHz
+var sampling_rate = 44100  # Default to 44.1kHz, you might need to adjust this
+var send_interval = 0.1  # Send data every 0.1 seconds
+var send_timer = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,11 +31,21 @@ func setupAudio(id):
 		index = AudioServer.get_bus_index("Record")
 		effect = AudioServer.get_bus_effect(index, 0)
 		# Add compressor for dynamic range compression
+		gate = AudioEffectGate.new()
+		gate.threshold_db = -18  # Adjust as needed
+		AudioServer.add_bus_effect(index, gate, 1)
 		compressor = AudioEffectCompressor.new()
-		compressor.threshold = -20  # Adjust as needed
-		compressor.ratio = 4.0  # Adjust as needed
-		AudioServer.add_bus_effect(index, compressor, 1)
-
+		compressor.threshold = -25  # Adjust as needed
+		compressor.ratio = 8.0
+		compressor.attack_us = 5
+		compressor.gain = 9.0  # Adjust as needed
+		AudioServer.add_bus_effect(index, compressor, 2)
+		eq = AudioEffectEQ.new()
+		eq.set_band_gain_db(0, -10)
+		eq.set_band_gain_db(1, -15)
+		eq.set_band_gain_db(5, -5)
+		AudioServer.add_bus_effect(index, eq, 3)
+		
 		# Get the sampling rate
 		sampling_rate = AudioServer.get_mix_rate()
 		
@@ -40,11 +54,16 @@ func setupAudio(id):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_multiplayer_authority():
-		processMic()
+		processMic(delta)
 	processVoice()
 	pass
 
-func processMic():
+func processMic(delta):
+	send_timer += delta
+	if send_timer < send_interval:
+		return
+	send_timer = 0.0
+
 	var sterioData : PackedVector2Array = effect.get_buffer(effect.get_frames_available())
 	
 	if sterioData.size() > 0:
@@ -70,8 +89,8 @@ func quantize_audio(data: PackedFloat32Array) -> PackedByteArray:
 	return byte_data
 	
 func float_to_byte(value: float) -> int:
-	# Simple quantization from -1.0 to 1.0 into 0 to 255
-	return int((value + 1.0) * 127.5)
+	# More aggressive quantization from -1.0 to 1.0 into 0 to 255
+	return int(clamp((value + 1.0) * 127.5, 0, 255))
 
 func processVoice():
 	if receiveBuffer.size() <= 0:
