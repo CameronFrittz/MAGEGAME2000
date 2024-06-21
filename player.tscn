@@ -919,6 +919,7 @@ libraries = {
 autoplay = "Spin"
 
 [node name="VOIP" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamGenerator_uj3mq")
 autoplay = true
 max_distance = 1000.0

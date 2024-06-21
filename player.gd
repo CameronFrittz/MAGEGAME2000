@@ -215,12 +215,12 @@ func update_reticle_position_with_joystick(delta: float):
 func _ready():
 	%GameOver.visible = false 
 	if not is_multiplayer_authority():
+		$VOIP.volume_db = 0
 		%PlayerTag.visible = true
 		%Nickname.text = MultiplayerController.nickname
 	add_to_group("players")
-	if has_authority():
-		spin_flashlight.get_animation("Spin").loop = true
-		spin_flashlight.play("Spin")
+	if is_multiplayer_authority():
+		$VOIP.volume_db = -80
 		var player_camera = get_node("Camera2D")
 		player_camera.make_current()
 	if hud:

@@ -22,10 +22,6 @@ config/icon="res://icon.svg"
 driver/enable_input=true
 driver/mix_rate=48000
 
-[autoload]
-
-GameManager="*res://GameManager.gd"
-
 [display]
 
 window/stretch/mode="canvas_items"

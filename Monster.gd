@@ -190,11 +190,11 @@ func apply_arrowdamage(damage_amount: int):
 func die():
 	if multiplayer.is_server():
 		#set_physics_process(false)
-		%AnimationPlayer.play("death")
-		%GruntSFX.pitch_scale = randf_range(.2,.4)
-		%GruntSFX.playing = true
 		if is_dying:
-			return  # Prevent re-entry if already dying
+			return  # Prevent re-entry if already dying		
+		%AnimationPlayer.play("death")
+		$HurtArea.queue_free()
+		$AttackArea.queue_free()
 		is_dying = true
 		SPEED = 0
 		var deathpausetimer = Timer.new()  # Create a new Timer instance
@@ -203,6 +203,14 @@ func die():
 		deathpausetimer.one_shot = true  # Ensure it fires only once
 		deathpausetimer.timeout.connect(_on_death_timeout)  # Connect timeout signal to a function
 		deathpausetimer.start()  # Start the timer
+	else:
+		%AnimationPlayer.play("death")
+		$HurtArea.queue_free()
+		$AttackArea.queue_free()
+		%GruntSFX.pitch_scale = randf_range(.2,.4)
+		%GruntSFX.playing = true
+		
+	
 
 
 func _on_death_timeout():

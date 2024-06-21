@@ -846,6 +846,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GameOver" type="Label" parent="."]
+unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 z_index = 5
 offset_left = -577.0
