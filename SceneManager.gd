@@ -11,7 +11,7 @@ func _enter_tree():
 	
 	
 	get_node("PlayerSpawner").set_multiplayer_authority(1)
-	get_node("BatSpawner").set_multiplayer_authority(1)
+	get_node("BatSpawner").set_multiplayer_authority(1, true)
 	await get_tree().create_timer(3.0).timeout
 	$BackgroundMusic.playing = true
 	
