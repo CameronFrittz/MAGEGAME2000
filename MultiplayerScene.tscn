@@ -24,36 +24,54 @@ color = Color(0.0798585, 0.123611, 0.133157, 1)
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 408.0
-offset_right = 492.0
-offset_bottom = 439.0
+offset_left = 397.0
+offset_top = 384.0
+offset_right = 441.0
+offset_bottom = 415.0
 text = "Host"
 
 [node name="Join" type="Button" parent="."]
 layout_mode = 0
-offset_left = 552.0
-offset_top = 408.0
-offset_right = 596.0
-offset_bottom = 439.0
+offset_left = 546.0
+offset_top = 384.0
+offset_right = 590.0
+offset_bottom = 415.0
 text = "Join
 "
 
 [node name="StartGame" type="Button" parent="."]
 layout_mode = 0
-offset_left = 640.0
-offset_top = 408.0
-offset_right = 736.0
-offset_bottom = 439.0
+offset_left = 657.0
+offset_top = 384.0
+offset_right = 753.0
+offset_bottom = 415.0
 text = "Start Game"
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 400.0
-offset_top = 456.0
-offset_right = 752.0
-offset_bottom = 487.0
+offset_left = 397.0
+offset_top = 423.0
+offset_right = 749.0
+offset_bottom = 454.0
 placeholder_text = "Nickname"
+alignment = 1
+
+[node name="Address" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 460.0
+offset_right = 749.0
+offset_bottom = 491.0
+placeholder_text = "~Server IP~"
+alignment = 1
+
+[node name="Port" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 496.0
+offset_right = 749.0
+offset_bottom = 527.0
+placeholder_text = "~Server Port~"
 alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -67,10 +85,10 @@ texture = ExtResource("2_67sq1")
 [node name="Control" type="Control" parent="."]
 clip_contents = true
 anchors_preset = 0
-offset_left = 424.0
-offset_top = 491.0
-offset_right = 727.0
-offset_bottom = 599.0
+offset_left = 427.0
+offset_top = 532.0
+offset_right = 730.0
+offset_bottom = 640.0
 
 [node name="HeroSelect" type="ItemList" parent="Control"]
 layout_mode = 0

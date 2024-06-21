@@ -30,6 +30,14 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="MAGEGAME"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/hathora/plugin/plugin.cfg")
+
+[hathora]
+
+application_id="app-54aa36f5-1838-4ac4-8378-d41696cb7076"
+
 [input]
 
 ui_left={

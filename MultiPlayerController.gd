@@ -4,6 +4,8 @@ extends Control
 @export var Address = "127.0.0.1"
 @export var port = 8910
 @onready var nickname_LE = get_node("LineEdit")
+@onready var address_LE = get_node("Address")
+@onready var port_LE = get_node("Port")
 @onready var nickname = nickname_LE.text
 @export var player_scene_selection : String
 var peer
@@ -50,6 +52,8 @@ func _on_host_button_down():
 	print("Waiting For Players!")
 
 func _on_join_button_down():
+	Address = address_LE
+	port = port_LE
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(Address, port)
 	multiplayer.set_multiplayer_peer(peer)
