@@ -75,7 +75,7 @@ var target_zoom: Vector2 = ZOOM_LEVELS[current_zoom_index]
 
 # Joystick sensitivity
 const JOYSTICK_SENSITIVITY: float = 325.0  # Adjust as needed
-
+@onready var AudioManager: Node = $AudioManager
 # Process input for various actions
 func _input(event): 
 	if event.is_action_pressed("fire"):
@@ -555,7 +555,8 @@ func die():
 		animation_player.play("Death")
 
 		
-	
+func GetAudioManager(Node):
+	return AudioManager
 
 func revive():
 	print("Player has been revived")

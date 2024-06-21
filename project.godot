@@ -17,6 +17,11 @@ boot_splash/bg_color=Color(0.21464, 0.000302045, 0.318002, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/enable_input=true
+driver/mix_rate=48000
+
 [autoload]
 
 GameManager="*res://GameManager.gd"

@@ -77,7 +77,7 @@ var target_zoom: Vector2 = ZOOM_LEVELS[current_zoom_index]
 @onready var ChargeBar = %ProgressBar
 # Joystick sensitivity
 const JOYSTICK_SENSITIVITY: float = 325.0  # Adjust as needed
-
+@onready var AudioManager: Node = $AudioManager
 # Process input for various actions
 func _input(event):
 	if has_authority() and event.is_action_pressed("fire"):

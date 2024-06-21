@@ -1,7 +1,6 @@
 extends MultiplayerSpawner
 
 var spawn_points = []  
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_spawn_points()
@@ -16,6 +15,8 @@ func spawn_player(data: Variant) -> Node:
 	var spawn_position = spawn_points[spawn_index] + offset
 	currentPlayer.global_position = spawn_position
 	currentPlayer.set_multiplayer_authority(data.peer_id, true)
+	currentPlayer.get_node("AudioManager").set_multiplayer_authority(data.peer_id, true)
+	currentPlayer.get_node("AudioManager").setupAudio(data.peer_id)
 	return currentPlayer
 
 

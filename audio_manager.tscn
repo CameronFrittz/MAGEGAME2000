@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://wbn225ab1grl"]
+
+[node name="AudioManager" type="Node"]
+
+[node name="Input" type="AudioStreamPlayer" parent="."]
+bus = &"Record"
