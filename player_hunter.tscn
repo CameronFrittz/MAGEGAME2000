@@ -863,12 +863,16 @@ vertical_alignment = 1
 [node name="VOIP" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamGenerator_0bivg")
 autoplay = true
+max_distance = 1000.0
+bus = &"VOIP"
 
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("10_c48xr")
 outputPath = NodePath("../VOIP")
 
 [node name="Input" type="AudioStreamPlayer" parent="AudioManager"]
+autoplay = true
+bus = &"Record"
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
