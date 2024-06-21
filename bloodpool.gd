@@ -6,7 +6,6 @@ extends Node2D
 const MAX_ALPHA: float = 0.70
 
 func _ready() -> void:
-	
 	_do_distribution()
 	add_child(timer)
 	self.modulate.a = 0.0  # Start with the sprite fully transparent
