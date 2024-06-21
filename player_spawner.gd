@@ -16,7 +16,6 @@ func spawn_player(data: Variant) -> Node:
 	currentPlayer.global_position = spawn_position
 	currentPlayer.set_multiplayer_authority(data.peer_id, true)
 	currentPlayer.get_node("AudioManager").set_multiplayer_authority(data.peer_id, true)
-	currentPlayer.get_node("AudioManager").setupAudio(data.peer_id)
 	return currentPlayer
 
 

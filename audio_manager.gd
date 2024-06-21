@@ -9,20 +9,21 @@ var receiveBuffer := PackedFloat32Array()
 @export var outputPath : NodePath
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	setupAudio(get_multiplayer_authority())
 	pass # Replace with function body.
 
 func setupAudio(id):
 	input = $Input
+	var VOIP = get_node(outputPath)
 	get_node(outputPath).set_multiplayer_authority(id, true)
 	set_multiplayer_authority(id, true)
-	if get_multiplayer_authority() == id:
+	if is_multiplayer_authority():
 		input.stream = AudioStreamMicrophone.new()
 		input.play()
 		index = AudioServer.get_bus_index("Record")
 		effect = AudioServer.get_bus_effect(index, 0)
-		
-	playback = get_node(outputPath).get_stream_playback()
+		VOIP.play()
+	playback = VOIP.get_stream_playback()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
