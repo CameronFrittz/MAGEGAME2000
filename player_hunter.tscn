@@ -670,6 +670,7 @@ modulate_color = Color(0.352941, 1, 0, 1)
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_0bivg"]
 mix_rate = 48000.0
+buffer_length = 3.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 6

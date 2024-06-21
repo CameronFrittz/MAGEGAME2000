@@ -17,6 +17,7 @@ wet = 0.51
 
 [sub_resource type="AudioEffectCapture" id="AudioEffectCapture_7sg3s"]
 resource_name = "Capture"
+buffer_length = 0.5
 
 [sub_resource type="AudioEffectEQ" id="AudioEffectEQ_ttlpa"]
 resource_name = "EQ"
@@ -27,8 +28,7 @@ band_db/10000_hz = -1.5
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_4sw40"]
 resource_name = "Compressor"
-threshold = -20.5
-ratio = 9.3
+threshold = -13.5
 gain = 9.1
 attack_us = 135.0
 

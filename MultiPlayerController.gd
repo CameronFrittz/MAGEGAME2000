@@ -52,11 +52,12 @@ func _on_host_button_down():
 	print("Waiting For Players!")
 
 func _on_join_button_down():
-	Address = address_LE
-	port = port_LE
+	#Address = address_LE.text
+	#port = int(port_LE.text)  # Convert port_LE.text to an integer
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(Address, port)
 	multiplayer.set_multiplayer_peer(peer)
+
 
 func _on_start_game_button_down():
 	StartGame.rpc()
