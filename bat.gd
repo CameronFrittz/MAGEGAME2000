@@ -36,7 +36,6 @@ var is_wandering: bool = false
 var retreat_target: Vector2
 # Node references
 @onready var sprite = $Sprite2D
-@onready var game_manager = get_node("/root/GameManager")
 var flash_timer: Timer
 @export var is_hit_recently = false
 @export var hit_timer: float = 0.0
