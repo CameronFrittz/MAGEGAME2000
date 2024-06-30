@@ -15,8 +15,8 @@ damping = 1.0
 hipass = 0.56
 wet = 0.51
 
-[sub_resource type="AudioEffectCapture" id="AudioEffectCapture_7sg3s"]
-resource_name = "Capture"
+[sub_resource type="VOIPInputCapture" id="VOIPInputCapture_ejov4"]
+resource_name = "VOIPInputCapture"
 buffer_length = 0.3
 
 [sub_resource type="AudioEffectEQ" id="AudioEffectEQ_ttlpa"]
@@ -85,13 +85,13 @@ bus/6/mute = true
 bus/6/bypass_fx = false
 bus/6/volume_db = 0.0
 bus/6/send = &"Master"
-bus/7/name = &"Record"
+bus/7/name = &"Mic"
 bus/7/solo = false
 bus/7/mute = false
 bus/7/bypass_fx = false
 bus/7/volume_db = 0.0
 bus/7/send = &"Mute Bus"
-bus/7/effect/0/effect = SubResource("AudioEffectCapture_7sg3s")
+bus/7/effect/0/effect = SubResource("VOIPInputCapture_ejov4")
 bus/7/effect/0/enabled = true
 bus/8/name = &"VOIP"
 bus/8/solo = false

@@ -1,7 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtr4ej34oy44s"]
+[gd_scene load_steps=8 format=3 uid="uid://dtr4ej34oy44s"]
 
 [ext_resource type="Script" path="res://FreezeReticle.gd" id="1_7v4gh"]
 [ext_resource type="Texture2D" uid="uid://d3xj0etlbugqc" path="res://SPRITES/StunReticle.png" id="1_rfyts"]
+[ext_resource type="Shader" path="res://freezereticle.gdshader" id="2_qrio1"]
+[ext_resource type="Texture2D" uid="uid://bwx7mcj61k1x2" path="res://SPRITES/lighttree/tree-noise.png" id="3_xiann"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_arexj"]
+shader = ExtResource("2_qrio1")
+shader_parameter/pixel_mode = true
+shader_parameter/pixel_amount = 1000.0
+shader_parameter/distortion = 0.01
+shader_parameter/texture_noise_system = true
+shader_parameter/noise_speed = 0.1
+shader_parameter/noise_direction = -1
+shader_parameter/worley_noise_system = true
+shader_parameter/worley_cell_density = 300.0
+shader_parameter/worley_speed = 2.0
+shader_parameter/edge_and_mask = false
+shader_parameter/alpha_value = 1.0
+shader_parameter/final_alpha = 1.0
+shader_parameter/noise_texture = ExtResource("3_xiann")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pyili"]
 radius = 453.079
@@ -28,9 +46,12 @@ collision_mask = 2147483903
 script = ExtResource("1_7v4gh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_arexj")
+position = Vector2(17, 38)
 texture = ExtResource("1_rfyts")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-19, 57)
 rotation = -1.58122
 shape = SubResource("CapsuleShape2D_pyili")

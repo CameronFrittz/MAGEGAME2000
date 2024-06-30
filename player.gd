@@ -456,7 +456,8 @@ func apply_damage(damage_amount: int):
 			die()
 		update_hud()
 		start_flash()
-
+		start_controller_vibration(5, .5, .5)
+		
 #@rpc("any_peer", "call_local")
 #func _request_damage(damage_amount: int):
 	#if multiplayer.is_server():
@@ -503,6 +504,7 @@ func show_freeze_reticle():
 		var data := {"peer_id": multiplayer.get_unique_id()}
 		freeze_reticle = fret_spawner.spawn(data)
 		freeze_reticle.global_position = global_position
+		freeze_reticle.get_node("Sprite2D").modulate.a = .5
 		freeze_reticle.z_index = 5
 		var scale_factor = (4.25 * FREEZE_RADIUS) / freeze_reticle.get_node("Sprite2D").texture.get_size().x
 		freeze_reticle.scale = Vector2(scale_factor, scale_factor)

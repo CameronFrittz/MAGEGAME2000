@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bhsnp72cip8du"]
+[gd_scene load_steps=49 format=3 uid="uid://bhsnp72cip8du"]
 
 [ext_resource type="Shader" path="res://SHADERS/outline.gdshader" id="1_0vyox"]
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
@@ -718,8 +718,6 @@ _data = {
 "Spin": SubResource("Animation_gkyet")
 }
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_uj3mq"]
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
@@ -919,7 +917,6 @@ autoplay = "Spin"
 
 [node name="VOIP" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = SubResource("AudioStreamGenerator_uj3mq")
 autoplay = true
 max_distance = 1000.0
 bus = &"VOIP"
@@ -930,7 +927,6 @@ outputPath = NodePath("../VOIP")
 
 [node name="Input" type="AudioStreamPlayer" parent="AudioManager"]
 autoplay = true
-bus = &"Record"
 
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
