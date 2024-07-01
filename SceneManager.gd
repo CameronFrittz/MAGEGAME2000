@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var PlayerSpawner_node = get_node("PlayerSpawner")
 @onready var MultiplayerController = get_node("/root/Control")
-@onready var batspawner_node = get_node("/root/MAGEGAME/BatSpawner")
+@onready var batspawner_node = get_node("BatSpawner")
 @onready var rain_sound = get_node("%RainSound") # Ensure this node path is correct
 var currentPlayer
 

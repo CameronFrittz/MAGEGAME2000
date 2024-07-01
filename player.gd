@@ -556,7 +556,7 @@ func die():
 		animation_player.play("Death")
 
 		
-func GetAudioManager(Node):
+func GetAudioManager():
 	return AudioManager
 
 func revive():
@@ -567,7 +567,7 @@ func revive():
 
 func _on_hurt_area_area_entered(area: Area2D) -> void:
 	if damage_cooldown_timer <= 0:
-		apply_damage(randf_range(2,5))
+		apply_damage(int(randf_range(2,5)))
 		start_flash()
 		apply_knockback(area.global_position, 500)
 		%HurtSFX.playing = true
