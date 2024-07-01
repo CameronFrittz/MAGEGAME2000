@@ -11,7 +11,7 @@ func _enter_tree():
 	
 	
 	get_node("PlayerSpawner").set_multiplayer_authority(1)
-	get_node("BatSpawner").set_multiplayer_authority(1, true)
+	#get_node("BatSpawner").set_multiplayer_authority(1, true)
 	await get_tree().create_timer(3.0).timeout
 	$BackgroundMusic.playing = true
 	
@@ -19,10 +19,10 @@ func _enter_tree():
 func _ready():
 	if not is_multiplayer_authority():
 		spawn_my_player.rpc_id(1, MultiplayerController.nickname, MultiplayerController.player_scene_selection)
-	if is_multiplayer_authority():
-		var _currentBat = batspawner_node.spawn()
-		var _currentBat1 = batspawner_node.spawn()
-		var _currentBat2 = batspawner_node.spawn()
+	#if is_multiplayer_authority():
+		#var _currentBat = batspawner_node.spawn()
+		#var _currentBat1 = batspawner_node.spawn()
+		#var _currentBat2 = batspawner_node.spawn()
 	pass
 
 func _process(_delta):
