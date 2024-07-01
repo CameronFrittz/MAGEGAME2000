@@ -927,6 +927,7 @@ outputPath = NodePath("../VOIP")
 
 [node name="Input" type="AudioStreamPlayer" parent="AudioManager"]
 autoplay = true
+bus = &"Mic"
 
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]

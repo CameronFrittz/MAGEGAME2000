@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dfnc0xr2dy5tq"]
+[gd_scene load_steps=43 format=3 uid="uid://dfnc0xr2dy5tq"]
 
 [ext_resource type="Script" path="res://player_hunter.gd" id="1_b4wei"]
 [ext_resource type="Texture2D" uid="uid://b42tajnsaic2i" path="res://SPRITES/hunter.png" id="2_143of"]
@@ -668,8 +668,6 @@ bg_color = Color(1.29953e-06, 0.727557, 0.104411, 1)
 texture = SubResource("CanvasTexture_ribq6")
 modulate_color = Color(0.352941, 1, 0, 1)
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_0bivg"]
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 6
 y_sort_enabled = true
@@ -861,7 +859,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VOIP" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamGenerator_0bivg")
 autoplay = true
 max_distance = 1000.0
 bus = &"VOIP"
@@ -872,7 +869,7 @@ outputPath = NodePath("../VOIP")
 
 [node name="Input" type="AudioStreamPlayer" parent="AudioManager"]
 autoplay = true
-bus = &"Record"
+bus = &"Mic"
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
