@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bhsnp72cip8du"]
+[gd_scene load_steps=48 format=3 uid="uid://bhsnp72cip8du"]
 
 [ext_resource type="Shader" path="res://SHADERS/outline.gdshader" id="1_0vyox"]
 [ext_resource type="Texture2D" uid="uid://be17xix2p17c4" path="res://SPRITES/skeleton_mage_high.png" id="1_2aoey"]
@@ -13,7 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://b5r0maxct8boj" path="res://SFX/ZombieVictimGroan.wav" id="8_c81l1"]
 [ext_resource type="FontFile" uid="uid://bj0kuqitt4phg" path="res://SPRITES/alagard.ttf" id="8_uglhr"]
 [ext_resource type="Texture2D" uid="uid://ctxfl6cy5y64u" path="res://SPRITES/Flashlight.png" id="10_cjekt"]
-[ext_resource type="Script" path="res://audio_manager.gd" id="14_x2r6m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oq15k"]
 shader = ExtResource("1_0vyox")
@@ -920,14 +919,6 @@ unique_name_in_owner = true
 autoplay = true
 max_distance = 1000.0
 bus = &"VOIP"
-
-[node name="AudioManager" type="Node" parent="."]
-script = ExtResource("14_x2r6m")
-outputPath = NodePath("../VOIP")
-
-[node name="Input" type="AudioStreamPlayer" parent="AudioManager"]
-autoplay = true
-bus = &"Mic"
 
 [connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
